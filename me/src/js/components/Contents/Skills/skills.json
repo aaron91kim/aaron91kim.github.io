@@ -1,0 +1,66 @@
+[
+	{	
+		"name": "Angular",
+		"image": "skills_angular.png"
+	},
+	{	
+		"name": "Bootstrap",
+		"image": "skills_bootstrap.png"
+	},
+	{	
+		"name": "CSS",
+		"image": "skills_css.png"
+	},
+	{	
+		"name": "Express",
+		"image": "skills_express.png"
+	},
+	{	
+		"name": "Git",
+		"image": "skills_git.png"
+	},
+	{	
+		"name": "HTML",
+		"image": "skills_html.png"
+	},
+	{	
+		"name": "Jquery",
+		"image": "skills_jquery.png"
+	},
+	{	
+		"name": "Java",
+		"image": "skills_java.png"
+	},
+	{	
+		"name": "Javascript",
+		"image": "skills_js.png"
+	},
+	{	
+		"name": "MongoDB",
+		"image": "skills_mongodb.png"
+	},
+	{
+		"name": "NodeJS",
+		"image": "skills_nodejs.png"
+	},
+	{	
+		"name": "Socket",
+		"image": "skills_socket.gif"
+	},
+	{	
+		"name": "Sass",
+		"image": "skills_sass.png"
+	},
+	{
+		"name": "React",
+		"image": "skills_react.png"
+	},
+	{
+		"name": "PHP",
+		"image": "skills_php.png"
+	},
+	{
+		"name": "Webpack",
+		"image": "skills_webpack.png"
+	}
+]

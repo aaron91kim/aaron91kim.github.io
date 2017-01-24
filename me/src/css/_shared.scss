@@ -1,0 +1,87 @@
+$primary-color: #333;
+$grey: #67686C;
+@mixin text-stroke($fill-color, $strock-color, $width) {
+  -webkit-text-stroke-width: $width;
+     -moz-text-stroke-width: $width;
+      -ms-text-stroke-width: $width;
+          text-stroke-width: $width;
+  -webkit-text-fill-color: $fill-color;
+     -moz-text-fill-color: $fill-color;
+      -ms-text-fill-color: $fill-color;
+          text--fill-color: $fill-color;
+  -webkit-text-stroke-color: $strock-color;
+     -moz-text-stroke-color: $strock-color;
+      -ms-text-stroke-color: $strock-color;
+          text-stroke-color: $strock-color;        
+}
+
+
+@mixin transision ($attr) {
+  -webkit-transition: $attr;
+     -moz-transition: $attr;
+      -ms-transition: $attr;
+          transition: $attr;
+}
+
+@mixin transform ($attr){
+  -webkit-transform: $attr;
+     -moz-transform: $attr;
+      -ms-transform: $attr;
+          transform: $attr;
+}
+
+@mixin animation($animate...) {
+    $max: length($animate);
+    $animations: '';
+
+    @for $i from 1 through $max {
+        $animations: #{$animations + nth($animate, $i)};
+
+        @if $i < $max {
+            $animations: #{$animations + ", "};
+        }
+    }
+    -webkit-animation: $animations;
+    -moz-animation:    $animations;
+    -o-animation:      $animations;
+    animation:         $animations;
+}
+
+.clear-fix {
+	&:after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+}
+
+.section {
+  margin-bottom: 50px;
+  &:after{
+    content: '';
+    display: block;
+    clear: both;
+    padding-top: 50px;
+    width: 90%;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+
+  }
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}

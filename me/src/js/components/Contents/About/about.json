@@ -1,0 +1,47 @@
+[
+	{
+		"image": "me.jpg",
+		"title": "Seonwoo, Kim (Aaron)",
+		"location": "",
+		"description": [
+			" I was born and raised in South Korea and moved to Canada in 2015 and obtained Working permit. ",
+			" I can speak & work with 3 languages ( English, Japanese, Korean ) I'm currently looking for a job. "
+		],
+		"date": null,
+		"link": "src/Resume.pdf"
+	},
+	{
+		"image": "coding.png",
+		"title": "IT / Technical Support",
+		"location": "Seoul, Korea",
+		"description": [
+			"Various start up business projects with Seonhyung kim.",
+			"I used MEAN Stack (AngularJS, MongoDB, NodeJS, Express), Ionic, Javascript, Jquary, CSS etc "
+		],
+		"date": { "from" : "2013", "to": "2016" }
+	},
+	{
+		"image": "soldesk.jpeg",
+		"title": "Soldesk",
+		"subTitle" : "Project based JSP web programming",
+		"location": "Seoul, Korea",
+		"description": [
+			" Over 400 hours course \"project based JSP / JavaSpring framework course\" ",
+			" This course included SQL, JSP / Spring framework, Javascript, HTML, CSS. ",
+			" I was the lead of the team, and made wine web shopping mall as a project at the end."
+		],
+		"date": { "from" : "2013", "to": "2014" }
+	},
+	{
+		"image": "gop.jpeg",
+		"title": "Military Service( Army )",
+		"subTitle" : "Sergeant",
+		"location": "Gangwon-do, Korea",
+		"description": [
+			" Worked as M29 unit sergeant in General Out Post (GOP) ",
+			" Educating about M29 to soldiers Main work is to protect General Out Post from North Korea."
+		],
+		"date": { "from" : "2010", "to": "2012" }
+	}
+
+]

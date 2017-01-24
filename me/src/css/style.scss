@@ -1,0 +1,15 @@
+@import 'normalize';
+@import 'shared';
+@import 'components';
+
+$background-img: url("http://localhost:8080/src/images/background.jpg");
+
+.container {
+	width: 980px;
+	margin: 0 auto;
+}
+
+body {
+  background-image: $background-img;
+ 	background-position: center 0;
+}

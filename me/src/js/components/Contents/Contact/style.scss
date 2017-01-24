@@ -1,0 +1,16 @@
+.Contact { 
+	& .Contact__thanks {
+		font-size: 1.2em;
+		font-weight: bold;
+		color: #FF9820;
+		clear: both;
+		text-align: center;
+	}
+	& .fa {
+		font-size:1.5em;
+	}
+	.Contact__information{
+		float:right;		
+	}
+	@extend .clear-fix;
+}

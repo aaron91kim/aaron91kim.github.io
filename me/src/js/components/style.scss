@@ -1,0 +1,35 @@
+$header-font-color: #eee;
+
+.Layout__header {
+	& h1{
+		float: left;
+		@include text-stroke(rgba(255,255,255, 0.8), black, 1px);
+	}
+	& ul{
+		float:right;
+		& li{
+			cursor: pointer;
+			list-style-type: none;
+			float: left;
+			font-size: 1.5em;
+			margin-left: 1.5em;
+			@include text-stroke(rgba(255,255,255, 0.8), black, 1px);	
+			&.current{
+				@include text-stroke(red, black, 1px);	
+			}
+		}
+	} 
+	@extend .clear-fix;
+}
+
+.contents{
+	margin-top: 30px;
+	border-radius: 6px;
+	background-color: #eee;
+	border: 2px solid #ccc;
+	padding: 35px;
+	height: 400px;
+	overflow-y: scroll;
+	@extend .clear-fix;
+	
+}

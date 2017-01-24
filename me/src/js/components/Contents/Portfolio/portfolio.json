@@ -1,0 +1,47 @@
+[
+	{
+		"title": "webRTC & Chatting room",
+		"link": "https://webChat.herokuapp.com",
+		"image": "placeholder.png",
+		"languages": [
+			"NodeJS", "Exress", "Websocket", "React", "Redux", "WebRTC", "Webpack"
+		],
+		"description": "Currently working on this project for learning more about WebRTC and React"
+	},
+	{
+		"title": "Bestscaper",
+		"link": "https://bestscaper.herokuapp.com",
+		"image": "placeholder.png",
+		"languages": [
+			"NodeJS", "Express", "Javascript", "MongoDB", "CSS"
+		],
+		"description": "I worked this website 2016 by myself for landscaping platform business. The main concept is that the client posts what they want landscaper does to their yard, Landscaper can see that post and find out the potential client easily through google map, and job board"
+	},
+	{
+		"title": "Hairnode",
+		"link": "https://hairnode.herokuapp.com",
+		"image": "placeholder.png",
+		"languages": [
+			"AngularJS", "NodeJS", "Express", "Javascript", "Jquery", "MongoDB", "CSS", "Websocket"
+		],
+		"description": "Website for hairsalon & barbel shop This website provide informations (Price , Shop location, Hiring information, Comment, Reserve, Events etc) Also hair designer can build their cureer in this website."
+	},
+	{
+		"title": "Nailpinky",
+		"link": "https://nailpinky.herokuapp.com",
+		"image": "placeholder.png",
+		"languages": [
+			"AngularJS", "NodeJS", "Express", "Javascript", "Jquery", "MongoDB", "CSS", "Websocket", "IONIC"
+		],
+		"description": "Lunched in Korea main concept is that User post their nail on this website. This site provides tutorial how to style their nail."
+	},
+	{
+		"title": "ClinicAsia",
+		"link": "https://clinicasia.herokuapp.com",
+		"image": "placeholder.png",
+		"languages": [
+			"PHP", "Jquery", "CSS", "MySQL"
+		],
+		"description": "Very first project about medical travel in asia. This website provide users information."
+	}
+]

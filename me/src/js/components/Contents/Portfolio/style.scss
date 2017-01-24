@@ -1,0 +1,33 @@
+.Portfolio {
+	position: relative;
+	
+	& .portfolio-item {
+		list-style-type: none;
+		line-height: 0.6;
+
+		& .title {
+			font-size: 1.3em;
+			font-weight: bold;
+			& .link {
+				font-size: 0.9em;
+				font-weight: normal;
+				
+			}
+		}
+
+		& .languages {
+			color: $grey;
+			font-size:0.8em;
+			line-height: 1.5;
+
+		}
+
+		& .description {
+			font-size: 0.96em;
+			color : $primary-color;
+			line-height: 1.4;
+		}
+	}
+	
+	@extend .clear-fix;
+}
