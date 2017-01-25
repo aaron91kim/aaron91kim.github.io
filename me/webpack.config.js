@@ -40,7 +40,7 @@ module.exports = {
     ]
   },
   output: {
-    publicPath: "/",
+    publicPath: "./src/",
     path: __dirname + "/src/",
     filename: "client.min.js"
   },
