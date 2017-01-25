@@ -18,8 +18,12 @@ module.exports = {
         }
       },
       { 
-        test: /\.png$/, 
-        loader: "url-loader?limit=100000" 
+        test: /\.(jpg|png)$/, 
+        loader: "url-loader",
+        query: {
+          limit: 8192,
+          name: 'images/[name].[ext]'
+        }
       },
       { 
         test: /\.jpg$/, 
