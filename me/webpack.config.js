@@ -31,7 +31,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass', 'sass-loader?sourceMap']
+        loaders: ['style', 'css', 'sass']
       },
       {
         test: /\.json$/,
