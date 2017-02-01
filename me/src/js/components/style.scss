@@ -13,9 +13,12 @@ $header-font-color: #eee;
 			float: left;
 			font-size: 1.5em;
 			margin-left: 1.5em;
-			@include text-stroke(rgba(255,255,255, 0.8), black, 1px);	
+			color: $primary-color;
+			&:hover{
+				color: red;
+			}
 			&.current{
-				@include text-stroke(red, black, 1px);	
+				color: red;
 			}
 		}
 	} 

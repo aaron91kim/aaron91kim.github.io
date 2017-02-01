@@ -2,7 +2,7 @@
 	{
 		"title": "webRTC & Chatting room",
 		"link": "https://webChat.herokuapp.com",
-		"image": "placeholder.png",
+		"image": "/portfolio/simplertc.png",
 		"languages": [
 			"NodeJS", "Exress", "Websocket", "React", "Redux", "WebRTC", "Webpack"
 		],
@@ -20,7 +20,7 @@
 	{
 		"title": "Hairnode",
 		"link": "https://hairnode.herokuapp.com",
-		"image": "placeholder.png",
+		"image": "/portfolio/hairnode.png",
 		"languages": [
 			"AngularJS", "NodeJS", "Express", "Javascript", "Jquery", "MongoDB", "CSS", "Websocket"
 		],
@@ -29,7 +29,7 @@
 	{
 		"title": "Nailpinky",
 		"link": "https://nailpinky.herokuapp.com",
-		"image": "placeholder.png",
+		"image": "/portfolio/nailpinky.png",
 		"languages": [
 			"AngularJS", "NodeJS", "Express", "Javascript", "Jquery", "MongoDB", "CSS", "Websocket", "IONIC"
 		],

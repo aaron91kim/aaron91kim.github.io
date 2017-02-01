@@ -29,8 +29,8 @@ class PortfolioItem extends Component{
 					<p className = "languages"> { this.renderLanguages( this ) }</p>
 					<p className = "description"> { this.props.description } </p>
 				</div>
-				<div className = "col-xs-offset-1 col-xs-3">
-					<img src = { PATH + this.props.image } className="image"/>
+				<div className = "col-xs-offset-1 col-xs-4">
+					<img src = { PATH + this.props.image } className="img-responsive img-thumbnail"/>
 				</div>
 			</li>
 		)
