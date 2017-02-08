@@ -1,0 +1,24 @@
+<ion-modal-view ng-controller="VerifyCtrl">
+  <ion-header-bar>
+    <h1 class="title">인증해주세요</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeVerifyModal()">닫기</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+      <ion-list>
+        <ion-item class="item">
+          해당 이메일로 인증번호가 발송되었습니다. <br/>
+          <span ng-click="sendVerifyingMailAgain()" style="color:#607FF3"> 이메일 재전송하기</span>
+        </ion-item>
+        <ion-item class="item item-input">
+          <span class="input-label">인증키</span>
+          <input type="text" autocapitalize="none" ng-model="verify.code" >
+        </ion-item>
+        <ion-item class="item">
+          <button class="button button-block button-calm" ng-click="verifyUser()">인증하기</button>
+        </ion-item>
+      </ion-list>
+
+  </ion-content>
+</ion-modal-view>

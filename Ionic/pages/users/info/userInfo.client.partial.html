@@ -1,0 +1,93 @@
+<style>
+#profile-buttons a.button{
+	line-height:20px;
+	min-height:25px;
+	font-size:0.8em;
+}
+#profile-buttons a.button i{
+	font-size:1.6em;
+}
+</style>
+<ion-view>
+  <ion-nav-title>
+    <a href="/mobile/#/app/photo">
+    	<img src="resource/img/logo.png" style="height:43px;">
+    </a>
+  </ion-nav-title>
+  <ion-content ng-init="init()">
+		<div class="card">
+			<div class="row">
+				<!-- 좌측사진 -->
+				<div class="col col-33">
+				    <img ng-src="userAssets/users/{{user._id}}/profilePhoto.jpg"
+			            fbsrc="{{user.facebook.profilePhoto}}"
+			            err-src = "resource/img/people.jpg"
+			            style="width:100%;border-radius:50%"> 
+			    </div>
+				<!-- 우측정보 -->
+			    <div class="col col-67" style="padding-left:5%; font-size:0.9em">
+				    <h2 style="font-size:1.2em">{{user.name}}</h2>
+				    
+				    <div ng-if="user.working.length > 0">
+						일하는곳 :
+						<span ng-repeat="working in user.working">
+							{{working.shop.shopName}}
+						</span>
+				    </div>
+
+				    <div id="profile-buttons">
+				    	<div style="margin-bottom:5px;">
+				    		<a href="{{user.blogUrl}}" target="_blank" class="button button-balanced">블로그</a>
+				    		<a href="{{user.facebook.url}}" target="_blank" class="button button-positive">페이스북</a>
+				    	</div>
+				   		<div> 		
+					    	<a class="button button-outline button-positive" ng-click="addFollower()" ng-if="!checkFollower()" style="display:block">
+					    		<i class="ion-android-person-add"> </i> 팔로우
+					    	</a>
+					    	<a class="button button-positive active" ng-click="removeFollower()" ng-if="checkFollower()" style="display:block">
+					    		<i class="ion-ios-person-outline"> </i> 팔로우
+					    	</a>
+				    	</div>
+				    </div>
+			    </div>
+		    </div>
+
+			<div class="row" style="text-align:center;">
+			    <a class="col col-33">
+			    	{{userPhotos.max}}<br/>
+			      	사진
+			    </a>
+			    <a class="col col-33">
+			    	{{user.followers.length}}<br/>
+			      	팔로워 
+			    </a>
+			    <a class="col col-33" ng-click="showComments()">
+			    	{{userComments.max}}<br/>
+			      	코멘트
+			    </a>
+		  	</div>
+
+	    </div>
+		<div class="card">
+			<ion-list>
+			  	<ion-item>
+					<div class="row gallery">
+						<img ng-src ="userAssets/users/{{photo.writer._id}}/album/{{photo.photo}}"class="col col-50" ng-repeat = "photo in userPhotos.photos" ng-click="toPhotoInfo(photo)" image-equalizer>
+					</div>
+					<ion-infinite-scroll ng-if="userPhotos.max > userPhotos.now"
+			            on-infinite="getPhotosByWriter()"
+			            distance="1%">
+		          	</ion-infinite-scroll>
+			  	</ion-item>
+		  	</ion-list>
+		</div>
+	
+  </ion-content>
+  
+</ion-view>
+<style>
+.gallery {
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+</style>

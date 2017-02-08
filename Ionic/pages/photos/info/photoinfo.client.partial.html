@@ -1,0 +1,48 @@
+<ion-view>
+  <ion-nav-title>
+  	<a href="/mobile/#/app/photo">
+    	<img src="resource/img/logo.png" style="height:43px;">
+    </a>
+  </ion-nav-title>
+  <ion-content ng-init="getPhotoById()">
+	
+	<ion-list>
+		<ion-item class="item item-avatar" href="#/app/user/userInfo/{{photo.writer._id}}">
+		    <img ng-src="userAssets/users/{{photo.writer._id}}/profilePhoto.jpg"
+	            fbsrc="{{photo.writer.facebook.profilePhoto}}"
+	            err-src = "resource/img/people.jpg"> 
+		    <h2>{{photo.writer.name}}</h2>
+		    <p>{{photo.date | date: 'yyyy/MM/dd hh:mm'}}</p>
+	  	</ion-item >
+
+	  	<ion-item class="item item-body">
+		    
+	    	<img ng-src="userAssets/users/{{photo.writer._id}}/album/{{photo.photo}}" class="full-image" >
+
+		    <p>
+		      <a href="#" class="subdued">{{photo.like.length}} 좋아요 </a>
+		      <a href="#" class="subdued">{{photo.comments.length}} 코멘트 </a>
+		    </p>
+	  	</ion-item >
+
+		<ion-item  class="item tabs tabs-secondary tabs-icon-left">
+		    <a class="tab-item" ng-click="addLike()" ng-if="!checkLikePhoto()">
+		      <i class="icon ion-thumbsup"></i>
+		      좋아요
+		    </a>
+		    <a class="tab-item" ng-click="removeLike()" ng-if="checkLikePhoto()" style="color:#0083D8">
+		      <i class="icon ion-thumbsup"></i>
+		      좋아요
+		    </a>
+		    <a class="tab-item" ng-click="showComments()">
+		      <i class="icon ion-chatbox"></i>
+		      코멘트
+		    </a>
+		    <a class="tab-item" ng-click="feedPost()">
+		      <i class="icon ion-share"></i>
+		      공유하기
+		    </a>
+	  	</ion-item >
+	</ion-list>
+  </ion-content>
+</ion-view>

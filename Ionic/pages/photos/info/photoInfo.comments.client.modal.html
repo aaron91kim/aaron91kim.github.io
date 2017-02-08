@@ -1,0 +1,43 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">코멘트</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeComments()">닫기</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="코멘트" ng-model="comment">
+        </label>
+        <button class="button button-small button-positive" ng-click="addPhotoComment(comment)">
+          등록
+        </button>
+      </div>
+    </div>
+    <div>
+      <div ng-if="photo.comments.length == 0" style="text-align:center">
+        코멘트가 없습니다.
+      </div>
+      <div ng-if="photo.comments.length > 0">
+        <ion-list class="list" show-delete="shouldShowDelete">
+          <ion-item class="item item-avatar" ng-repeat="comment in photo.comments | orderBy:'-date' " >
+            <img ng-src="userAssets/users/{{comment.from._id}}/profilePhoto.jpg"
+            fbsrc="{{comment.from.facebook.profilePhoto}}"
+            err-src = "resource/img/people.jpg"> 
+            <h2>{{comment.from.name}}</h2>
+            <p>{{comment.comment}}</p>
+            <ion-option-button 
+              class="button-assertive"
+              ng-if="comment.from._id == initData._id"
+              ng-click="removePhotoComment(comment)">
+              삭제
+            </ion-option-button>
+            
+          </ion-item>
+        </ion-list>
+      </div>
+    </div> 
+  </ion-content>
+</ion-modal-view>

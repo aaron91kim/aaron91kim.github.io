@@ -1,0 +1,135 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content drag-content="false">
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+  <style>
+    .menu-footer .button{
+      font-size:1.5em;
+    }
+    .menu-footer span{
+      font-size:0.8em;
+    }
+  </style>
+  <ion-side-menu side="left">
+    
+    <!-- menu header -->
+    
+
+    <!-- menu contents -->
+    <ion-content>
+      <ion-list>
+        <!-- <ion-item class="item item-divider">
+          회원메뉴
+        </ion-item> 
+        <ion-item menu-close  ng-if="loggedIn" class="item item-icon-left">
+          <i class="icon ion-log-out"></i>
+          나의페이지
+        </ion-item>
+
+          -->
+
+        <ion-item class="item item-divider">
+          <!-- 로그인 안했을시 -->
+          <div ng-if="!loggedIn" class="row">
+            <div class="col col-33">
+              <img src="resource/img/people.jpg" style="border-radius:50%; width:70px; height:70px;">
+              
+            </div>
+            <div class="col col-67" style="position:relative;">
+              <div style="position:absolute; bottom:1px;">로그인을 해주세요
+                <p style="font-size:0.8em; color:#6783FC" >
+                  <span ng-click="showLoginModal()">
+                    <span>로그인</span>
+                    <i class="ion-log-in"></i>
+                  </span>
+                  |
+                  <span ng-click="showSignupModal()">
+                    <span>회원가입</span>
+                    <i class="ion-ios-personadd"></i>
+                  </span>
+                </p>
+               
+              </div>
+            </div>
+            
+          </div>
+
+          <!-- 로그인했을시 -->
+          <div ng-if="loggedIn" class="row">
+            <div class="col col-33">
+              <img ng-src="userAssets/users/{{initData._id}}/profilePhoto.jpg"
+              fbsrc="{{initData.facebook.profilePhoto}}"
+              err-src = "resource/img/people.jpg" style="border-radius:50%; width:70px; height:70px;">
+            </div>
+            <div class="col col-67" style="position:relative;">
+              
+              <!-- notification -->
+              <!-- <div style="position:absolute; right:15px; top:4px;">
+                <i class="ion-android-notifications-none" style="font-size:1.6em"></i>
+                <span class="badge badge-assertive" style="right:-16px; top:-6px;">0</span>
+              </div>
+               -->
+              <div style="position:absolute; bottom:1px; font-size:0.9em">{{initData.name}}님 환영합니다
+                <div>
+                  <!-- <span style="font-size:0.8em; color:#6783FC" >
+                    <i class="ion-android-notifications-none"></i>
+                    <span>알림</span>
+                  </span>
+                  <span style="font-size:0.8em; color:#6783FC" > | </span> -->
+                  <span ng-click="doLogout()" style="font-size:0.8em; color:#6783FC" >
+                    <span>로그아웃</span>
+                    <i class="ion-log-out"></i>
+                  </span>
+                  <span ng-click="showVerifyModal()" ng-if="initData.verified != 'true'" style="font-size:0.8em; color:#6783FC" >
+                    <span>인증하기</span>
+                    <i class="ion-key"></i>
+                  </span>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+        
+    
+        <ion-item class="item item-divider">
+          메뉴
+        </ion-item>
+        <ion-item menu-close href="#/app/photo" class="item item-icon-left">
+          <i class="icon ion-images"></i>
+          사진
+        </ion-item>
+        
+        
+      </ion-list>
+
+    </ion-content>
+
+    <!-- munu footer -->
+    <ion-footer-bar class="bar-stable menu-footer">
+
+      <div class="button-bar">
+        <a class="button button-light" ng-click="goToPC()">
+          <i class="ion-monitor"></i>
+          <span>PC 버전</span>
+        </a>
+
+        <a class="button button-light" href="https://www.facebook.com/nailpinky">
+          <i class="ion-social-facebook"></i>
+          <span>페이스북</span>
+        </a>
+      </div>
+
+    </ion-footer-bar>
+  </ion-side-menu>
+  
+</ion-side-menus>

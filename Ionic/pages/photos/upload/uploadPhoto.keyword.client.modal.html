@@ -1,0 +1,46 @@
+<ion-modal-view ng-controller="LoginCtrl">
+  <ion-header-bar>
+    <h1 class="title">키워드 등록</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeKeywordModal()">완료</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    
+    
+    <ion-list class="list">
+      <ion-item class="item">키워드는 <b>최대5개</b>까지 등록이 가능합니다.</ion-item>
+      <ion-item class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="키워드" ng-model="keyword">
+        </label>
+        <button class="button button-small" ng-click="addKeyword(keyword)">
+          등록
+        </button>
+      </ion-item>
+    </ion-list>
+    <ion-list class="list card">
+      <ion-item class="item item-icon-left item-icon-right" href="#" ng-repeat="keyword in keywords track by $index">
+        <i class="icon">{{$index+1}}.</i>
+        {{keyword}}
+        <i class="icon ion-close assertive" ng-click="removeKeyword($index)"></i>
+      </ion-item>
+    </ion-list>
+
+<!-- <form ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">이메일</span>
+          <input type="text" ng-model="loginData.email">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">비밀번호</span>
+          <input type="password" ng-model="loginData.pwd">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">로그인</button>
+        </label>
+      </div>
+    </form> -->
+  </ion-content>
+</ion-modal-view>
