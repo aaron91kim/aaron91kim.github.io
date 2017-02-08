@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+	<head>
+		<%- include('layout/head.html') -%>
+		
+		<script src="/libs/moment.min.js"></script>
+		<script src="/libs/ejs_production.js"></script>
+		<script src ="/libs/geocomplete/jquery.geocomplete.js"></script>
+		<script src="/scripts/index.js"></script>
+
+		<link rel="stylesheet" href="/libs/raty/lib/jquery.raty.css">
+		<script src="/libs/raty/lib/jquery.raty.js"></script>
+		<script src="/libs/pagination/jquery.twbsPagination.min.js"></script>
+		<script src="/libs/shorten/src/jquery.shorten.js"></script>
+		
+		<meta property="fb:app_id" content="1525465817702104">
+		<meta property="og:site_name" content="Bestscaper">
+		<meta property="og:url" content="http://www.bestscaper.com">
+		<meta property="og:title" content="<%-title%>">
+		<meta property="og:description" content="<%-description%>">
+		<meta property="og:image" content="http://bestscaper.com/images/bestscaper.jpeg">
+		<script type="application/ld+json">
+			{
+			  "@context": "http://schema.org",
+			  "@type": "Organization",
+			  "url" : "http://www.bestscaper.com",
+			  "logo" : "http://bestscaper.com/images/bestscaper.jpeg"
+			}
+
+			
+		</script>
+		<script type="application/ld+json">
+			{
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"url": "http://www.bestscaper.com/"
+			}
+		</script>
+	</head>
+	<body>
+
+		<%- include('layout/header.html') -%>
+	<style>
+	.morecontent span {
+	    display: none;
+	}
+	.morelink {
+		color:blue;
+	    display: inline-block;
+	}
+	.morelink:focus{
+		color:blue;
+	}
+	
+	#map-canvas {
+		width:100%;
+	    height: 500px;
+	}
+	
+	#autocomplete {
+		background-color: #fff;
+		font-family: Roboto;
+		font-size: 15px;
+		font-weight: 300;
+		margin-left: 12px;
+		padding: 0 11px 0 13px;
+		text-overflow: ellipsis;
+		width: 400px;
+	}
+
+	#autocomplete:focus {
+		border-color: #4d90fe;
+	}
+
+	.category{
+		font-size:1.5em;
+	}
+
+	/*when loading the posts and companies */
+	.loading{
+		background-color: rgba(100,100,100,0.3);
+		position:relative;
+		min-height: 200px;
+	}
+	.loading > .loading-icon{
+		top:35%;
+		left:45%;
+		position:absolute;
+		font-size:8em;
+		color:white;
+
+	}
+	/* target area for companies*/
+	#companyArea{
+		padding:10px; 
+	}
+	.post-wrapper{
+		color:#6C6C6C;
+
+	}
+	.post-wrapper .row{
+		margin-bottom:15px;
+	}
+	.post-wrapper h4{
+		font-size:1.2em;
+		margin-bottom:.2em;
+	}
+	.post-wrapper:hover{
+		color:black;
+	}
+
+	/* target areas for posts*/
+	#postArea {
+		padding:5px; 
+	}
+	#postArea .col-xs-2{
+		padding: 0 1%;
+	}
+
+
+	/* ./postArea */
+	.btn-warning:focus, .btn-warning:hover {
+    	background-color: #C37B13;
+    	background-position: 0 -15px;
+    }
+	.btn-warning{
+		background-image:-webkit-linear-gradient(#FD8B48 0%, #CA7A07 100%);
+		background-image:-o-linear-gradient(#FD8B48 0%, #CA7A07 100%);
+		background-image:linear-gradient(#FD8B48 0%, #CA7A07 100%);
+	}
+	.company-container{
+		margin-bottom:10px;
+		text-align: center;
+		display:inline-block;
+	}
+	
+	</style>
+
+	
+		<div class="row" style="padding:10px; 5px;">
+			<div class="col-xs-7">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist" style="margin-right:10px">
+					<li role="presentation" class="active"><a href="#company" aria-controls="company" role="tab" data-toggle="tab">Landscapers <span class="badge" id="companyCount"><%= companyResult.count%></span></a></li>
+				    <li role="presentation"><a href="#post" aria-controls="post" role="tab" data-toggle="tab">Posts <span class="badge" id="postCount"><%= postResult.count%></span></a></li>
+				    
+				</ul>
+
+				<div style="padding-left:10px; padding-right:10px; border-left:1px solid #ccc; border-right:1px solid #ccc; border-bottom:1px solid #ccc; margin-right:10px;">
+					<!-- Tab panes -->
+					<div class="tab-content">
+
+						<div role="tabpanel" class="tab-pane active" id="company"><!-- company -->
+							<div class="row" style="padding:15px; margin-bottom:15px; border-bottom:1px solid #ccc;">
+								<h2 class="category col-xs-8">Are you looking for clients?</h2>
+								<div class="col-xs-4">
+									<!-- if user already registered  -->
+									<a href= "/about#register" target="_blank" class="btn btn-success btn-block">
+										<i class="fa fa-leaf"></i> Register Now
+									</a>
+								</div>
+							</div>
+							<div id="companyArea">
+								<div id="companyRenderArea">
+									<% if(companyResult.count > 0 ) { %> 
+									<% companyResult.companies.forEach(function(company){ %>
+										<a href="/c/<%=company._id.id%>" target="_blank">
+											<div class="company-container">
+												<% if(company._id.companyLogo){ %>
+													<img src='<%=company._id.companyLogo.url%>' class='image-rate'>
+												<% }else{ %>
+													<img src='/images/noimage.png' class='image-rate'>
+												<% }%>
+												<p class="company-rating" data-score = "<%=company.avgRating%>"></p>
+												<p class="company-name-size"><%=company._id.companyName%></p>
+												
+											</div>
+										</a>
+									<% }) %>
+									<% }else {%>
+										<p style="padding:10px; font-size:1.4em; font-weight:bold">There is no result</p>
+									<% } %>
+								</div> <!-- /companyRenderArea -->
+							</div>
+							<ul id="pagination-company" class="pagination-sm"></ul>
+						</div>
+
+					    <div role="tabpanel" class="tab-pane" id="post"> <!-- posts-->
+					    	<div class="row" style="padding:15px; margin-bottom:15px;  border-bottom:1px solid #ccc;">
+								<h2 class="col-xs-8 category">Are you looking for the best offer?</h2>
+								<div class="col-xs-4">
+									<a href="/users/me/post/write_post" class="btn btn-block btn-warning"><i class="fa fa-pencil-square-o"></i> Write your post</a>
+								</div>
+							</div>
+							<div id="postArea">
+								<div id="postRenderArea">
+									<!-- for SEO index page has to have some datas -->
+									<% if(postResult.count > 0 ) { %>
+									<% postResult.posts.forEach(function(post){ %>
+										<a href="/h/<%=post.house._id%>/p/<%=post._id%>" target = "_blank" class="post-wrapper">
+											<div class="row">
+												<div class="col-xs-2">
+													<% if(post.house.mainPhoto.url){ %>
+														<img src="<%-post.house.mainPhoto.url%>" class='img-responsive'>
+													<% }else{ %>
+														<img src ="/images/noimage.png" class="img-responsive">
+													<% } %>
+												</div>
+												<div class="col-xs-10">
+													<% if(post.house.address){
+														var address = post.house.address;
+														var postAddress = '';
+														if( address.country){
+															postAddress = address.country;
+														}
+														if( address.state){
+															postAddress = address.state + ',' + postAddress;
+														}
+														if( address.city ){
+															postAddress = address.city + ',' + postAddress;
+														}
+														if( address.street){
+															postAddress = address.street + ',' + postAddress;
+														}
+														if( address.streetNumber){
+															postAddress = address.streetNumber + ',' + postAddress;
+														}
+
+													}
+													%>
+													<h4><%=post.title + '( '+ postAddress + ' )' %></h4>
+
+													<span class="more"><%=post.description%></span>
+													<div class="row" style="margin-top:10px;">
+														<div class="col-xs-8">
+															<span style="font-weight:bold;">Exp.Date : <%= moment(post.wanted.to).format('YYYY-MM-DD') %></span>
+														</div>
+														<div class="col-xs-4" style="text-align:right; font-size:0.9em">
+															Posted : <%=moment(post.posted).format('YYYY-MM-DD')%><br/>
+															Views : <%=post.view%><br/>
+															Contact : <%=post.offers.length%>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									<% }) %>
+									<% }else{  %>
+										<p style="padding:10px; font-size:1.4em; font-weight:bold">There is no result</p>
+									<%}%>
+								</div> <!-- ./postRenderArea-->
+
+							</div><!-- ./postArea -->
+							<ul id="pagination-post" class="pagination-sm"></ul>
+						</div><!-- post area-->
+				    </div>
+
+					    
+				</div>
+			</div>
+
+			<div class="col-xs-5 map-conatainer">
+					<div id="map-canvas"></div>
+					
+			</div>
+		</div>
+		<script>
+		$(function() {
+			Scaper.init.initLast();
+			Scaper.init.initArea({
+				renderArea : {
+					company : $('#companyRenderArea'),
+					post : $('#postRenderArea')
+				},
+				pagination : {
+					company : $('#pagination-company'),
+					post : $('#pagination-post')
+				},
+				countArea :{
+					company : $('#companyCount'),
+					post : $('#postCount')
+				}
+			});
+
+			
+			Scaper.init.initPagination({
+				company : <%=companyResult.maxPage%>,
+				post : <%=postResult.maxPage%>
+			})
+
+			Scaper.init.initMap();
+			Scaper.init.initAutoComplete();
+
+		});
+		
+		
+		</script>
+		<%- include('layout/footer.html') -%>
+	</body>
+</html>
+
