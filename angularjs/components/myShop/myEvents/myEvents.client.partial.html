@@ -1,0 +1,77 @@
+<h1>Events & Description about Shop</h1>
+
+<form ng-submit="setEvents(events)">
+	<div>
+		
+	<input type="radio" ng-model="events.mainType" ng-value="'event'" id="type-event">
+	<label for="type-event">Event</label>
+
+	<input type="radio" ng-model="events.mainType" ng-value="'desc'" id="type-desc">
+	<label for="type-desc">Description about shop</label>
+	</div>
+
+
+	<div style="margin-top:30px">
+		<div ng-show="events.mainType === 'event'">
+			<div style="postion:relative">
+				<input type="radio" ng-model="events.eventType" ng-value="'event'" id="event-percent">
+				<label for="event-percent">discount with %</label>
+				
+
+				<div ng-repeat="event in events.event track by $index" style="margin-bottom:10px;">
+					<span style="position:relative">
+						<input type="text" placeholder="please describe about your event" class="form-control manageEvent-event-text"
+						ng-disabled="events.eventType == 'desc'"
+						ng-model="events.event[$index].title"> 
+					</span>
+					<input type="number" class="form-control manageEvent-event-number"
+					ng-disabled="events.eventType == 'desc'"
+					ng-model="events.event[$index].percent">% <span>Discount</span>
+
+					<span ng-click="addEvent()" ng-if="events.event.length == 1" class="fontRed" style="cursor:pointer">
+						<span class="glyphicon glyphicon-plus"></span>
+						Add
+					</span>
+
+					<span ng-click="removeEvent($index)" ng-show="events.event.length == 2" class="fontRed" style="cursor:pointer">
+						<span class="glyphicon glyphicon-minus"></span>
+						Remove
+					</span>
+
+				</div>
+
+			</div>
+			<div style="margin-top:30px">
+				<input type="radio" ng-model="events.eventType" ng-value="'desc'" id="event-desc">
+
+				<label for="event-desc">describe about event</label>
+				<textarea 
+				ng-disabled="events.eventType == 'event' " placeholder="please describe about event" class="form-control"
+				ng-model="events.eventDesc"></textarea>
+			</div>
+		</div>
+
+		<div ng-show="events.mainType === 'desc' ">
+			<textarea placeholder="please describe about your shop" class="form-control"
+			ng-model="events.desc"></textarea>
+
+		</div>
+
+	</div>
+
+	<div style="text-align:right; margin-top:30px" ng-show="events.mainType">
+		<input type="submit" class="btn btn-primary" value="Save">
+	</div>
+</form>
+
+
+<style>
+	.manageEvent-event-text{
+		display:inline-block;
+		width:300px;
+	}
+	.manageEvent-event-number{
+		display:inline-block;
+		width:60px;
+	}
+</style>

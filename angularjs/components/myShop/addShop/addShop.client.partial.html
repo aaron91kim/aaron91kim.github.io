@@ -1,0 +1,30 @@
+<h1>Add Shop</h1>
+
+<form ng-submit = "addShop(shopInfo)" class="addShop-form" name="addShopForm">
+
+    <div>
+        <label for="shop-name">Shop name</label>
+        <input type="text" class="form-control" placeholder ="Your shop name" ng-model = "shopInfo.shopName" id="shop-name" required>
+    </div> 
+    <div>
+        <label for="shop-tel">Phone</label>
+        <input type="text" class="form-control" placeholder ="(123)456-7890" ng-model ="shopInfo.shopTel" id="shop-tel"required>
+    </div>
+    
+    <hr/>
+    <div class="shop-addrs">
+        <div>
+            <label for="address">City & Province</label>
+            <input type="text" class="form-control" id="address" ng-model = "shopInfo.findAddress" googleplace required>
+        </div>
+        
+    </div>
+    <div>
+        <label for="search-addr">Postal code</label>
+        <input type="text" class="form-control" placeholder = "Your Postcode" id="post1" ng-model="shopInfo.postalCode">
+    </div>
+    <div class="textRight">
+        <input type="submit" class="btn btn-primary" value="Create" ng-disabled = "addShopForm.$invalid">
+    </div>
+</form>
+

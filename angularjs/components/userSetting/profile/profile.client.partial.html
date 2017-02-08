@@ -1,0 +1,58 @@
+<h1>Change Profile</h1>
+<hr />
+
+
+<form ng-submit="updateProfile()" enctype='multipart/form-data'>
+    <div class="edituser-parts">
+        <div class="edituser-left-side">
+            <label for ="uploadImg">Profile Photo</label>
+        </div>
+        <div class="edituser-right-side">
+            <img 
+            ng-src="userAssets/users/{{initData._id}}/profilePhoto.jpg"
+            fbsrc="{{initData.facebook.profilePhoto}}"
+            err-src = "resource/img/people.png"
+            width="100" height="100" id="preveiw" style="float:left">
+            <div style="margin-left:15px; float:left;">
+                <input type="file" id="uploadImg" ng-file-select="updateProfilePhoto($files)">
+            </div>
+        </div>
+    </div>
+
+    <div class="edituser-parts">
+        <div class="edituser-left-side">
+        Name
+        </div>
+        <div class="edituser-right-side">
+            <label for="firstName">First name</label>
+            <input type="text" placeholder = "firstName" class="form-control" id="firstName" ng-model="profileSetting.firstName" >
+            <label for="lastName">Last name</label>
+            <input type="text" placeholder = "lastName" class="form-control" id="lastName" ng-model="profileSetting.lastName" >
+        </div>
+
+    </div>
+
+    <div class="edituser-parts">
+        <div class="edituser-left-side">
+        <label for="tel">Tel</label>
+        
+        </div>
+        <div class="edituser-right-side">
+                <input type="text" id="tel" placeholder = "Tel" class="form-control" ng-model="profileSetting.tel">
+
+        </div>
+
+    </div>
+    
+
+    <div class="edituser-parts align-right">
+        <input type="submit" class="btn btn-primary" value="Save">
+    </div>
+</form>
+
+
+<script>
+$("#uploadImg").change(function() {
+    readURL(this,'#preveiw');
+});
+</script>

@@ -1,0 +1,65 @@
+<table class="table table-bordered" style="width:100%">
+    <tr>
+        <td><b>Payment / Age</b></td>
+        <td>
+            <span ng-if="nowShopData.shop.job.pay.way">Other</span>
+            <span ng-if="!nowShopData.shop.job.pay.way">
+                Weekly Pay : ${{nowShopData.shop.job.pay.from}} ~ ${{nowShopData.shop.job.pay.to}}
+            </span>
+            /
+            <span ng-if="nowShopData.shop.job.age.way">Other</span>
+            <span ng-if="!nowShopData.shop.job.age.way">
+                {{nowShopData.shop.job.age.from}}~{{nowShopData.shop.job.age.to}}
+            </span>
+        </td>
+    </tr>
+    
+    <tr>
+        <td><b>Position</b></td>
+        <td>
+            <span ng-repeat = "position in nowShopData.shop.job.position">
+                {{position}}{{$last ? '' : ', '}}
+            </span>
+
+        </td>
+    </tr>
+    
+    <tr>
+        <td><b>Career</b></td>
+        <td>
+            <span>
+                {{nowShopData.shop.job.career}}
+            </span>
+            
+
+        </td>
+    </tr>
+    <tr>
+        <td><b>Contact</b></td>
+        <td>
+            <span>
+                {{nowShopData.shop.job.contact}}
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <b>Job description</b> <br/>
+            <span>
+                {{nowShopData.shop.job.desc}}
+            </span>
+        </td>
+    </tr>
+    
+</table>
+<div style="text-align:center;">
+    <button class="btn btn-lg btn-primary" ng-click="applyJob()" 
+    ng-if="!isPending && !isApplied">
+    Apply
+    </button>
+    <div ng-if="isPending && !isApplied">
+        <button class="btn btn-lg btn-primary" ng-click ="cencelJob()">
+            Cancel Application
+        </button>
+    </div>
+</div>

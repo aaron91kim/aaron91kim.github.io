@@ -1,0 +1,339 @@
+<h1>Booking status
+	<div style="font-size:0.7em; display:inline" >
+		<button ng-if ="selectedShop.shop.reservable" class="btn btn-success"
+		ng-click="setReservable(false)">On</button>
+		<button ng-if ="!selectedShop.shop.reservable" class="btn btn-danger" 
+		ng-click="setReservable(true)">Off</button>
+	</div>
+</h1>
+
+<style>
+
+.reserve-list{
+	margin-bottom:20px;
+}
+.reserve-list:after{
+	clear:both;
+	content : "";
+	display:block;
+}
+.reserve-list .calender-area{
+	float:left;
+	
+	margin-right:20px;
+}
+.reserve-list .schedules-area{
+	float:left;
+
+}
+.schedules-area .selected-date{
+	font-size:1.2em;
+	margin-bottom:20px;
+}
+.calender-area div.ui-datepicker{
+	font-size:1.2em;
+}
+.passed{
+	background:#787578;
+	opacity : 0.9;
+}
+
+.schedules-area .reserve-list{
+	cursor:pointer;
+
+}
+
+
+
+</style>
+
+<div>
+	<audio id="alarm">
+		<source src="resource/ALARM.mp3">
+	</audio>
+	
+	<div class="reserve-list">
+
+		<div class="calender-area">
+			<div id="reserve-status"></div>
+
+		</div>
+
+		<div class="schedules-area">
+			<p class="selected-date" > 
+				<span ng-if="schedules.selectedDate">
+					Booked on {{schedules.selectedDate | date: 'yyyy/MM/dd' }}
+					<span style="color:red">({{selectedShop.reserves.length}})</span>
+				</span>
+				<span ng-if="!schedules.selectedDate">
+					Please select date
+				</span>
+			</p>
+
+			<div 
+			ng-repeat="reserve in selectedShop.reserves | orderBy : 'bookTime' " 
+			ng-if = "selectedShop.reserves.length > 0" 
+			ng-class="{'passed' : now > reserve.bookTime}"
+			ng-click="showSelectedReserve(reserve)"
+			class="reserve-list"
+			>
+				
+				<p style="padding:5px; border:1px solid #ccc; margin-bottom:10px; font-size:1.1em;"> 
+					<span style="margin-right:20px"><b>Designer</b> : {{reserve.designer.firstName}} {{reserve.designer.lastName}}</span>
+
+					<span><b>Booked time</b> : {{reserve.bookTime | date : 'h:mma'}}</span>
+				</p>
+				
+			</div>
+			<div ng-if="selectedShop.reserves.length == 0">
+				There is no reservation
+			</div>
+		</div>
+
+	</div>
+
+
+	<h2>Real time request ({{selectedShop.newReserves.length}})</h2>
+	
+
+	<style>
+	.booking-info{
+		height:300px;
+		border:1px solid #ccc;
+		margin-top:20px;
+		position:relative;
+	}
+	.booking-info .informations{
+		float:left;
+	}
+	.booking-info .informations h3{
+		background: -webkit-linear-gradient(#94c7f6 5%, #5992d0 100%);
+		background: -o-linear-gradient(#94c7f6 5%, #5992d0 100%);
+		background: linear-gradient(#94c7f6 5%, #5992d0 100%);
+		color:#F9F5FC;
+		padding:10px;
+		font-size:1.5em;
+	}
+	.booking-info .reserve-created{
+		position:absolute;
+		top:-20px;
+		right:1px;
+	}
+	.booking-info .first-part{
+		width:40%
+	}
+	.booking-info .inner-padding{
+		padding:10px;
+	}
+	.booking-info .second-part{
+		width:30%; 
+		border-left:1px solid #ccc; 
+		border-right: 1px solid #ccc; 
+		height:100%;
+	}
+	.booking-info .last-part{
+		width:30%;
+	}
+	</style>
+
+	<div ng-repeat="reserve in selectedShop.newReserves" >
+		<div class="booking-info">
+			<!-- booking informations -->
+			<div class="informations first-part">
+				<div>
+					<h3>Booking information</h3>
+					<div class="inner-padding">
+						<p><b>Name</b> : {{reserve.user.firstName}} {{reserve.user.lastName}}</p>
+						<p><b>H.P</b> : 
+							<span ng-if="reserve.user.tel">{{reserve.user.tel}}</span>
+							<span ng-if="!reserve.user.tel">There is no H.P</span>
+						</p>
+						<p><b>Date</b> : {{reserve.bookTime | date : 'yyyy/MM/dd'}}</p>
+						<p><b>Time</b> : {{reserve.bookTime | date : 'h:mma' }}</p>
+					</div>
+				</div>
+				<div style="margin-top:10px; border-top: 1px solid #ccc;">
+					<h3>Requested items</h3>
+					<div class="inner-padding">
+						<p ng-repeat = "item in reserve.items">
+							{{item.name}}
+						</p>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- items -->
+
+			<div class="informations second-part">
+				<h3>Memo</h3>
+				<div clsss="inner-padding">
+					<p>{{reserve.memo}}</p>
+				</div>
+			</div>
+
+
+			<div class="informations last-part">
+				<h3>Designer</h3>
+				<div style="text-align:center; padding:10px;">
+					<img ng-src="userAssets/users/{{reserve.designer._id}}/profilePhoto.jpg" width="150" height="150"
+		                fbsrc="{{reserve.designer.facebook.profilePhoto}} "
+		                err-src = "resource/img/people.png"
+		                ng-class="{'checked-designer-photo' : reserve.designer._id == selectedDesigner}"
+		                ng-click="selectDesignerInComment(designer.user._id)">
+					<p style="font-size:1.3em">{{reserve.designer.firstName}} {{reserve.designer.lastName}}</p>
+				</div>
+				<div style="text-align:center; margin-top:10px">
+					<button class="btn btn-primary" ng-click="setReserve(reserve, true)">Accept</button>
+					<button class="btn btn-default" ng-click="showCancelForm(reserve)">Cancel</button>
+				</div>
+			</div>
+				
+			
+			<div class="reserve-created">
+				<p>Customer booked on {{reserve.created | date : 'yyyy/MM/dd h:mma'}}</p>
+				
+			</div>
+		</div>
+		
+		<hr />
+
+	</div>
+	
+<style>
+
+#cancel-info{
+	position:absolute;
+	padding:10px;
+	background:white;
+	z-index:1050;
+	border-radius: 5px;
+}
+#cancel-info .close-btn{
+	cursor:pointer;
+	position: absolute;
+	top:5px;
+	right:5px;
+	width:15px;
+	height:15px;
+}
+
+</style>
+<!-- when master try to cancel users booking  -->
+
+	<div fix-center width="800" height="200" id="cancel-info" backdrop="true" ng-show="cancelForm">
+		<img src="resource/img/x-gray.png" class="close-btn" ng-click="cancelForm = false">
+
+		<h3>Reason to cancel this request</h3>
+		<select ng-model ="cancelBook.reason">
+			<option ng-selected="true">Please select a reason</option>
+			<option value="Time is already passed">Time is already passed</option>
+			<option value="There is no way to contact customer">There is no way to contact customer</option>
+			<option value="The Designer is day off">The designer is day off</option>
+			<option value="The Designer already has booking at this time">the Designer already has booking at this time</option>
+		</select>
+		
+		<h4>Another reason</h4>
+		<textarea ng-model ="cancelBook.reason" class="form-control"></textarea>
+		
+		<div style="text-align:right; margin-top:10px">
+			<span>Are you sure you want to cancel this request? </span>
+			<button class="btn btn-primary" ng-click="setReserve(cancelBook, false)">Confirm</button>
+			<button class="btn btn-default" ng-click="cancelForm = false">Cancel</button>
+		</div>
+		
+	</div>
+	
+	<style>
+
+	#reserve-info{
+		position:absolute;
+		padding:30px;
+		background:white;
+		z-index:1050;
+	}
+	#reserve-info .close-btn{
+		cursor : pointer;
+		position: absolute;
+		top:5px;
+		right:5px;
+		width:15px;
+		height:15px;
+	}
+	#reserve-info .informations h3{
+		background: -webkit-linear-gradient(#F6CCA8 5%, #D07471 100%) !important;
+		background: -o-linear-gradient(#F6CCA8 5%, #D07471 100%) !important;
+		background: linear-gradient(#F6CCA8 5%, #D07471 100%) !important;
+		color:#F9F5FC;
+		padding:10px;
+		font-size:1.5em;
+	}
+	</style>
+
+	<!-- when user click the booked list . it shows information about booking -->
+	<div width="800" height="400" fix-center backdrop="true" ng-show="checkBookForm" id="reserve-info">
+		<img src="resource/img/x-gray.png" class="close-btn"
+		ng-click="checkBookForm = false">
+		<div class="booking-info">
+			<!-- booking informations -->
+			<div class="informations first-part">
+				<div>
+					<h3>Booking information</h3>
+					<div class="inner-padding">
+						<p><b>Name</b> : {{selectedReserve.user.firstName}} {{selectedReserve.user.lastName}}</p>
+						<p><b>H.P</b> : 
+							<span ng-if="selectedReserve.user.tel">{{selectedReserve.user.tel}}</span>
+							<span ng-if="!selectedReserve.user.tel">There is no H.P</span>
+						</p>
+						<p><b>Date</b> : {{selectedReserve.bookTime | date : 'yyyy/MM/dd'}}</p>
+						<p><b>Time</b> : {{selectedReserve.bookTime | date : 'h:mma' }}</p>
+					</div>
+				</div>
+				<div style="margin-top:10px; border-top: 1px solid #ccc;">
+					<h3>Requested items</h3>
+					<div class="inner-padding">
+						<p ng-repeat = "item in selectedReserve.items">
+							{{item.name}}
+						</p>
+					</div>
+					
+				</div>
+			</div>
+			
+			
+			<div class="informations second-part">
+				<h3>Memo</h3>
+				<div clsss="inner-padding">
+					<p>{{selectedReserve.memo}}</p>
+				</div>
+			</div>
+
+
+			<div class="informations last-part">
+				<h3>Designer</h3>
+				<div style="text-align:center; padding:10px;">
+					<img ng-src="userAssets/users/{{selectedReserve.designer._id}}/profilePhoto.jpg" width="150" height="150"
+		                fbsrc="{{selectedReserve.designer.facebook.profilePhoto}} "
+		                err-src = "resource/img/people.png"
+		                ng-class="{'checked-designer-photo' : selectedReserve.designer._id == selectedDesigner}"
+		                ng-click="selectDesignerInComment(designer.user._id)">
+					<p style="font-size:1.3em">{{selectedReserve.designer.firstName}} {{selectedReserve.designer.lastName}}</p>
+				</div>
+				<div style="text-align:center; margin-top:10px">
+					<button class="btn btn-primary" ng-click="setNoShow(false)" ng-disabled="!selectedReserve.noShow">Visited</button>
+					<button class="btn btn-default" ng-click="setNoShow(true)" ng-disabled="selectedReserve.noShow">No-Show</button>
+				</div>
+			</div>
+				
+			
+			<div class="reserve-created">
+				<p>Customer booked on {{selectedReserve.created | date : 'yyyy/MM/dd h:mma'}}</p>
+				
+			</div>
+
+		</div>
+		
+	</div>
+
+</div>
+

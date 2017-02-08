@@ -1,0 +1,52 @@
+<!-- login modal -->
+<div class="modal" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-resize">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Sign In</h4>
+
+            </div>
+            <form role="form" name="loginForm" ng-submit="login(loginUser)" >
+                <div class="modal-body">
+
+                    <div style="padding:0 30px">
+
+                        <div style="padding: 0 0 0 5px"><b>Email</b></div>
+
+                        <input type="text" class="form-control" required ng-model="loginUser.email">
+                        <br/>
+                        <div style="padding: 0 0 0 5px"><b>Password</b>
+                            
+                            <span style="font-size:0.8em;" class="pointer-cursor fontSkyblue">
+                                <a href="" ng-click="signInToForgot()">Couldn't you remember your Password?</a>
+                            </span>
+                        </div>
+
+                        <input type="password" class="form-control" required ng-model="loginUser.pwd">
+
+                        <p class="fontSkyblue">{{msgtxt}}</p>
+                    </div>
+
+                </div>
+                <div style="text-align:center;">
+                    <a href="" ng-click="signInToUp()" data-toggle="tooltip" data-placement="top" title="sign up">Don't you sign up yet?</a>
+                    <br><br>
+                    <img src="resource/img/facebooklogin.png" class="facebook-login" data-ng-click="fbLogin()">
+                </div>
+                <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                    <input type="submit" value="Log in" class="btn btn-primary" ng-disabled="loginForm.$invalid">
+
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

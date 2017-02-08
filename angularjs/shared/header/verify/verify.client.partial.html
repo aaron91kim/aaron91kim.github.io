@@ -1,0 +1,10 @@
+<div ng-show="showVer" id="showVer" ng-cloak>
+    <span>You are verified. Thank you for sign up</span>
+</div>
+
+<div ng-show="initData.verified != 'true' && loggedIn" id="plzVer" ng-cloak>
+    <div>Check your inbox for an email confirming your account. You must click the link in the email to complete the registration process. &nbsp &nbsp|&nbsp &nbsp 
+    	<a href=""ng-click="sendVerifyingMailAgain(initData.email)">Resend email</a>
+    </div>
+
+</div>

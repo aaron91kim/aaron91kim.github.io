@@ -1,0 +1,128 @@
+<link rel="stylesheet" type="text/css" href="resource/css/myshop.css">
+<div class="main-container" ng-init="initAll()">
+    
+    
+    <div class="myShop-sidebar">
+
+        <div class="btn-group" data-toggle="buttons">
+            <label ng-repeat ="shopList in myShopLists" class="btn btn-default shoplist" ng-click="selectShop(shopList.shop._id, shopList.level)" ng-if="shopList.level > 0">
+                <span class="glyphicon glyphicon-cog shoplist-mark" ng-show="shopList.level == 2">
+                </span>
+                <input type="radio" name="shopList" >
+                {{shopList.shop.shopName}}
+            </label>
+        </div>
+
+        <div class="btn btn-default btn-lg add-btn"
+        ng-click = "directive = 'addShop'" >
+        <span class="glyphicon glyphicon-plus"></span>
+        Add shop
+        </div>
+
+
+        <hr />
+
+        <ul class="myShop-menu" ng-show="selectedShop">
+
+            <li class="title">Business</li>
+            <li class="lists" ng-click = "directive = 'reserve'">Book status</li>
+            <li class="lists" ng-click = "directive = 'members'">Shop Member</li>
+
+            <li class="title">Edit Shop information</li>
+            <li class="lists" ng-click = "directive = 'myshop'">fundamental</li>
+            <li class="lists" data-toggle="modal" data-target="#shopDescModal">Description</li>
+            <li class="lists" ng-click = "directive = 'designers'">Designers</li>
+            <li class="lists" ng-click = "directive = 'job'">Hiring</li>
+            <li class="lists" ng-click = "directive = 'mainImages'">Main images</li>
+            <li class="lists" ng-click = "directive = 'events'">Events</li>
+            <li class="lists" ng-click = "directive = 'prices'">Prices</li>
+            <hr/>
+            <li class="lists" ng-click = "withdrawForm = true" ng-show = "selectedShop.shop.owner != initData._id">Withdraw from Shop</li>
+            <li class="lists" ng-click = "removeShopForm = true" ng-show = "selectedShop.shop.owner == initData._id">Remove shop</li>
+        </ul>
+
+    </div>
+
+    
+    <div class="myShop-wrapper">
+        <!-- <ng-include src="subPage" /></ng-include> -->
+        <add-shop ng-if ="directive == 'addShop'"></add-shop>
+        <myshop-reserve ng-if = "directive == 'reserve' " ></myshop-reserve>
+        <myshop-members ng-if = "directive == 'members' "></myshop-members>
+        <myshop-designers ng-if = "directive == 'designers' "></myshop-designers>
+        <myshop ng-if = "directive == 'myshop' "></myshop>
+        <myshop-job ng-if = "directive == 'job' "></myshop-job>
+        <myshop-mainimages ng-if = "directive == 'mainImages' " datas="selectedShop"></myshop-mainImages>
+        <myshop-events ng-if = "directive == 'events' "></myshop-events>
+        <myshop-prices ng-if = "directive == 'prices' "></myshop-prices>
+    </div>
+    
+
+    <div class="myshop-hidden-form" ng-show="withdrawForm" width="550" scrollable ="true" backdrop ="true" fix-center>
+        <div class="content">
+            Do you want to out from <b>{{selectedShop.shop.shopName}}</b>
+        </div>
+        <div class="bottom-buttons">
+            <button ng-click="removeDesignerSelfFromShop()" class="btn btn-primary">Confirm</button>
+            <button ng-click="withdrawForm = false" class="btn btn-default"> Cancel </button>
+        </div>
+    </div>
+
+    <div class="myshop-hidden-form" ng-show="removeShopForm" width="550" scrollable ="false" backdrop ="true" fix-center>
+        <div class="content">
+            Are you sure you want to remove your shop?
+            <br/>
+            <b>(Comments, information about shop, followers will be removed)</b>
+        </div>
+        <div class="bottom-buttons">
+            <button ng-click="removeShop()" class="btn btn-primary">Confirm</button>
+            <button ng-click="removeShopForm = false" class="btn btn-default"> Cancel </button>
+        </div>
+    </div>
+    
+</div>
+
+
+    
+<!-- Modal -->
+<div class="modal" id="shopDescModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width : 990px; max-width:990px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Description</h4>
+      </div>
+      <div class="modal-body">
+        <text-angular ng-model="shopDesc" ></text-angular>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" ng-click="setDescription()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <style>
+    
+    .myshop-hidden-form{
+        font-size:1.1em;
+        background:white;
+        position:absolute;
+        padding:20px;
+        border:1px solid #ccc;
+        -webkit-transition:0.5s linear all;
+        -moz-transition:0.5s linear all;
+        -o-transition:0.5s linear all;
+        transition:0.5s linear all;
+    }
+    .myshop-hidden-form.ng-hide{
+        opacity: 0;
+    }
+    .myshop-hidden-form .content{
+        margin-bottom:30px;
+    }
+    .myshop-hidden-form .bottom-buttons{
+        text-align:right;
+    }
+    </style>

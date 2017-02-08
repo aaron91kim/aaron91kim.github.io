@@ -1,0 +1,23 @@
+<style>
+.schedule-box:after{
+	clear:both;
+	content:"";
+	display:block;
+}
+</style>
+<div style="padding:20px;" class="schedule-box">
+	<!-- calender -->
+	<div id="designerCalender" style="float:left;">
+	</div>
+	
+	<!-- schedule -->
+	<div style="display:inline-block; float:left; border:1px solid #ccc; width:500px; height:270px; margin-left:20px; padding:20px; overflow-y :scroll;"> 
+		<div style="margin-bottom:10px;">{{selectedDate | date : 'yyyy/MM/dd' }} Booking list
+		</div>
+		
+		<div ng-repeat = "schedule in daySchedules" style="background:#ccc; display:inline-block; padding:10px; ">
+			{{schedule.bookTime | date : 'h:mma'}}
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,39 @@
+<h1>Designer setting</h1>
+<hr />
+<form ng-submit ="updateDesigner(designerSetting)">
+
+
+	<div class="edituser-parts">
+		<div class="edituser-left-side">
+		Introduce yourself
+		</div>
+		<div class="edituser-right-side">
+			<textarea class="form-control" style="min-height:120px" ng-model="designerSetting.desc"></textarea>
+		</div>
+	</div>
+
+
+	<div class="edituser-parts">
+		<div class="edituser-left-side">
+			Phone number to user
+		</div>
+		<div class="edituser-right-side">
+				<input type="radio" ng-value="true" name ="mailing" ng-model ="designerSetting.open.tel" ng-checked = "designerSetting.open.tel"> Show
+				<input type="radio" ng-value="false" name="mailing" ng-model ="designerSetting.open.tel" ng-checked = "!designerSetting.open.tel"> Hide
+		</div>
+	</div>
+
+	<div class="edituser-parts">
+		<div class="edituser-left-side">
+			Schedule to user 
+		</div>
+		<div class="edituser-right-side">
+			<input type="radio" ng-value="true" name ="message" ng-model ="designerSetting.open.schedule" ng-checked = "designerSetting.open.schedule"> Show
+			<input type="radio" ng-value="false" name="message" ng-model ="designerSetting.open.schedule" ng-checked = "!designerSetting.open.schedule"> Hide
+		</div>
+	</div>
+
+	<div class="edituser-parts align-right">
+		<input type="submit" value="Save" class="btn btn-primary">
+	</div>
+</form>	

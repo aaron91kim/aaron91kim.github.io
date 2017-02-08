@@ -1,0 +1,18 @@
+<div>
+	초기 메인 페이지.
+</div>
+
+$push 는 단순히 한개의 마지막 데이터에만 넣어줌. (single array)
+push 를 쓸경우 전체의 db에 데이터를 넣어줌. (entire array)
+
+db.shops.update({},
+{
+	push : {
+		"designers" : {
+			"_id" : ObjectId("5099803df3f4948bd2f98391"),
+			"user" : ObjectId("54042bcc363f7750bb694609"),
+			"level" : 0
+		}
+	}
+}
+)

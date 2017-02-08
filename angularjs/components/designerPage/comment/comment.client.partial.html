@@ -1,0 +1,63 @@
+<!-- comment block -->
+<div class="commentbox" style="padding:10px">
+    <div ng-show ="!initData._id" style="padding:10px"> Please
+
+
+    <span style="color:blue; cursor:pointer" onclick="$('#signInModal').modal('show');">Sign in</span>
+    in order to write comment</div>
+    
+    <p style="font-weight:bold">comment
+        <span>({{designerComments.max}})</span>
+    </p>
+    
+    <div class="comment-wrap" ng-show ="initData._id">
+        <textarea class="form-control" rows="3" style="width:800px; float:left"
+        ng-model ="userComment" placeholder="Please write comment" ></textarea>
+        <button class="btn-lg btn btn-default" style="float:left; width:120px; height:73px; margin-left:10px"
+        ng-click="addComment(userComment)"
+        >Submit</button>
+    </div>
+
+    <ul class="commentlist">
+
+        <li class="comment list-style-none" ng-repeat = "comment in designerComments.comments track by $index">	
+            
+            <span style="color:#ccc; font-size:0.9em; position:absolute; bottom:-21px; right:0">
+            
+            <span ng-if="comment.where">from<a href="/?page={{comment.where._id}}">{{comment.where.shopName}}</a></span>
+            {{comment.date | date : 'yyyy/MM/dd hh:mm'}}</span>
+            
+            <p style="position:relative;">
+
+                <span 
+                ng-if = "comment.from._id == initData._id"
+                ng-click ="removeComment(comment._id,$index)"
+                style="position:absolute; right:-15px; cursor:pointer; color:red"
+                class="glyphicon glyphicon-remove">
+                </span>
+            </p>
+            <div class="from">
+                <img 
+                fbsrc="{{comment.from.facebook.profilePhoto}}"
+                err-src = "resource/img/people.png"
+                src="userAssets/users/{{comment.from._id}}/profilePhoto.jpg">
+                <p class="user-name">{{comment.from.firstName}}{{comment.from.lastName}}</p>
+            </div>
+            <span style="color:gray">
+                <pre style="border:none">{{comment.comment}}</pre>
+            </span>
+            <div class="to">
+                <img 
+                fbsrc="{{comment.to.facebook.profilePhoto}}"
+                err-src = "resource/img/people.png"
+                src="userAssets/users/{{comment.to._id}}/profilePhoto.jpg">
+                <p class="user-name">{{comment.to.firstName}}{{comment.to.lastName}}</p>
+            </div>
+        </li>
+
+    </ul>
+    <!-- 10개 단위로 끊어서 코멘트 출력할것. 버튼 누르면 나머지 코멘트 출력. -->
+    <center>
+        <button ng-click="getComments()" ng-show = "designerComments.max > designerComments.now">More Comments</button>
+    </center>
+</div>

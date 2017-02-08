@@ -1,0 +1,145 @@
+<style type="text/css">
+    
+.price-categories-headers {
+    
+    font-size: 1.5em;
+    font-weight:bold;
+    color:black;
+    width: 140px;
+    
+    margin-bottom: 20px;
+    position:relative;
+}
+
+.price-left{
+    float:left;
+    margin-right:60px;
+}
+.price-right{
+    float:left;
+}
+.price-wrapper{
+    margin-top:30px;
+    padding:20px;
+}
+
+.price-wrapper table{
+    margin-bottom:30px;
+    color:#999;
+    font-size:1.2em;
+    width:430px;
+}
+
+.price-wrapper table td{
+    padding-top:0.5em;
+}
+.price-tr-bottom-border{
+
+    border-bottom: 1px solid #ccc;
+}
+.price-wrapper:after{
+    clear:both;
+    content:"";
+    display:block;
+}
+.price-line{
+    text-decoration:line-through;
+}
+
+.price-th1{
+    width:220px;
+}
+.price-th23{
+    width:108px;
+    font-weight:bold;
+    color:black;
+    text-align: right;
+
+}
+</style>
+
+<div class="price-left">
+    <table>
+        <thead>
+            <tr>
+                <th class="price-th1"><h3 class="price-categories-headers">CUT</h3></th>
+                <th class="price-th23">Price</th>
+                <th class="price-th23">Sale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat= "item in nowShopData.shop.price.cut" class="price-tr-bottom-border">
+                <td >{{item.name}}</td>
+                <td class="textRight"
+                ng-class=" {'price-line' : item.sale}">$ {{item.price | number:0}}</td>
+                <td ng-if="!item.sale"></td>
+                <td class="textRight"
+                ng-if="item.sale">$ {{item.sale | number:0}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table>
+        <thead>
+            <tr>
+                <th class="price-th1"><h3 class="price-categories-headers">COLOR</h3></th>
+                <th class="price-th23">Price</th>
+                <th class="price-th23">Sale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat= "item in nowShopData.shop.price.color" class="price-tr-bottom-border">
+                <td>{{item.name}}</td>
+                <td class="textRight"
+                ng-class=" {'price-line' : item.sale}">$ {{item.price | number:0}}</td>
+                <td ng-if="!item.sale"></td>
+                <td class="textRight"
+                ng-if="item.sale">$ {{item.sale | number:0}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="price-th1"><h3 class="price-categories-headers">CLINIC</h3></th>
+                <th class="price-th23"
+                ng-class=" {'price-line' : item.sale}">Price</th>
+                <th class="price-th23">Sale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat= "item in nowShopData.shop.price.clinic" class="price-tr-bottom-border">
+                <td>{{item.name}}</td>
+                <td class="textRight"
+                ng-class=" {'price-line' : item.sale}">$ {{item.price | number:0}}</td>
+                <td ng-if="!item.sale"></td>
+                <td class="textRight"
+                ng-if="item.sale">$ {{item.sale | number:0}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="price-right">
+    <table>
+        <thead>
+            <tr>
+                <th class="price-th1"><h3 class="price-categories-headers">PERM</h3></th>
+                <th class="price-th23">Price</th>
+                <th class="price-th23">Sale</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat= "item in nowShopData.shop.price.perm" class="price-tr-bottom-border">
+                <td>{{item.name}}</td>
+                <td class="textRight"
+                ng-class=" {'price-line' : item.sale}">$ {{item.price | number:0}}</td>
+                <td ng-if="!item.sale"></td>
+                <td class="textRight"
+                ng-if="item.sale">$ {{item.sale | number:0}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

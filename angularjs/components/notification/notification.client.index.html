@@ -1,0 +1,55 @@
+<style>
+.notification-container{
+	width: 1024px;
+  	margin: auto;
+  	margin-top: 30px;
+  	margin-bottom: 30px;
+	min-height:400px;
+}
+.notification-container table{
+	margin-top : 30px;
+}
+.notification-container tr.unchecked{
+	background:#EFF6CB;
+}
+.notification-container tr.checked{
+	background:#F5F6EC;
+}
+.notification-container .mark-checked{
+	
+	color:#62F672;
+
+}
+.notification-container .mark-unchecked{
+	cursor:pointer;
+	color:#F668A1;
+}
+
+.remove-icon{
+	color:#F62D3E;
+	cursor:pointer;
+
+}
+
+</style>
+<div class="notification-container">
+	<h1>Your notifications</h1>
+
+	<table class="table table-hover">
+		<tr ng-repeat = "notification in initData.notifications | orderBy : '-date' " ng-class="{'unchecked' : !notification.isChecked}">
+			<td>
+				<span class="glyphicon glyphicon-ok mark-checked" ng-if="notification.isChecked"></span>
+				<span class="glyphicon glyphicon-unchecked mark-unchecked" ng-if="!notification.isChecked"
+				ng-click="setToChecked(notification._id)"></span>
+			</td>
+			<td style="cursor:pointer">{{notification.message}}</td>
+			<td>{{notification.date | date:"MM/dd 'at' h:mma"}}</td>
+			<td>
+			
+			<span class="glyphicon glyphicon-remove remove-icon"
+			ng-click="removeNotification(notification._id)"></span>
+			</td>
+		</tr>
+
+	</table>
+</div>

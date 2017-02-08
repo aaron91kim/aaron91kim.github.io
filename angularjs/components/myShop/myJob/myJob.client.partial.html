@@ -1,0 +1,106 @@
+
+<h1>Employee</h1>
+
+
+<form ng-submit="setJob()" class="myJob-form">
+	
+	<table border="1">
+		<tr>
+			<td>
+				Status
+			</td>
+			<td>
+				<input type="radio" ng-model="manageJob.status" ng-value="true" ng-checked="manageJob.status">Hiring 
+				<input type="radio" ng-model="manageJob.status" ng-value="false" ng-checked="!manageJob.status">Stop
+			</td>
+			
+		</tr>
+		<tr>
+			
+			<td>Pay</td> 
+			<td>
+				<input type="radio" ng-model ="manageJob.pay.way"  ng-value="true" 
+				ng-checked = "manageJob.pay.way"
+				ng-disable = "!manageJob.status">Other 
+
+				<input type="radio" ng-model ="manageJob.pay.way" ng-value="false" 
+				ng-checked = "!manageJob.pay.way"
+				ng-disable = "!manageJob.status">select
+				$ <input type="text" ng-model="manageJob.pay.from" ng-disabled="manageJob.pay.way || !manageJob.status" class="form-control pay-text">
+				~
+				$ <input type="text" ng-model="manageJob.pay.to" ng-disabled="manageJob.pay.way || !manageJob.status" class="form-control pay-text">
+				 / week
+
+			</td>
+		</tr>
+		<tr>
+			<td>Age</td> 
+			<td>
+				<input type="radio" ng-model= "manageJob.age.way" ng-value="true" ng-checked="manageJob.age.way"
+				ng-disable = "!manageJob.status"
+				>Other
+				
+
+				<input type="radio" ng-model= "manageJob.age.way" ng-value="false" ng-checked="!manageJob.age.way"
+				ng-disable = "!manageJob.status"
+				>select
+				<select ng-model ="manageJob.age.from" ng-disabled="manageJob.age.way || !manageJob.status">
+					<option ng-repeat = "age in job.age.from" ng-value="age.age" ng-select="manageJob.age.from == age">{{age}}</option>
+				</select>
+				~
+				<select ng-model ="manageJob.age.to" ng-disabled="manageJob.age.way || !manageJob.status">
+					<option ng-repeat = "age in job.age.to" ng-value="age.age" ng-selected="manageJob.age.to == age">{{age}}</option>
+				</select>
+				
+				
+
+
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Job position</td> 
+			<td>
+				<input type="text" ng-model="manageJob.position" class="form-control" placeholder = "step, manager, designer, etc">
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Career</td>
+			<td>
+				<select ng-model="manageJob.career" ng-disabled="!manageJob.status" >
+					<option ng-repeat = "career in job.career" ng-value="career" ng-selected="manageJob.career == career" >{{career}}</option>
+					
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Gender</td> 
+			<td>
+				<rabel ng-repeat = "gender in job.gender" ng-disabled="!manageJob.status">
+				<input type="radio" ng-model ="manageJob.gender" ng-value="gender" ng-selected = "manageJob.gender == gender"
+				>{{gender}}
+				</rabel>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Tel	
+			</td>
+			<td>
+				<input type="text" ng-model="manageJob.contact" placeholder = "(123)456-7890" ng-disabled="!manageJob.status" class="form-control">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<textarea ng-model = "manageJob.desc" ng-disabled="!manageJob.status" class="form-control" 
+				style="height:150px">
+				</textarea>
+			</td>
+		</tr>
+		
+	</table>
+	<div style="text-align:center">
+		<input type="submit" value="Save" class="btn btn-lg btn-primary">
+	</div>
+</form>

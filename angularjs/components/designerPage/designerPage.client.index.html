@@ -1,0 +1,124 @@
+<style>
+	.designer-top{
+		padding:10px;
+		position:relative;
+	}
+	.designer-top:after{
+		clear:both;
+		content:"";
+		display:block;
+	}
+	.follower-count.isFollower{
+		color:red;
+	}
+	.follower-count{
+		color : #34a5d1;
+		position : absolute; 
+		top : 10px; 
+		left : 10px; 
+		font-size : 1.3em; 
+	}
+	.profile-photo-with-count{
+		position:relative;
+		float:left;
+	}
+	.profile-desc{
+		float:left;
+	 	margin-left:10px;
+	}
+	.profile-desc p{
+		margin-bottom:7px;
+	}
+</style>
+<div>
+	<h3 class="designer-page-title">{{designer.user.firstName}} {{designer.user.lastName}}'s Profile</h3>
+	<div class="designer-top">
+		<!-- profile photo -->
+		<div class="profile-photo-with-count">
+			<span class="glyphicon glyphicon-heart follower-count" ng-class="{'isFollower' : designer.isFollower}">{{designer.followers.length}}</span>
+        	<img ng-src="userAssets/users/{{designer.user._id}}/profilePhoto.jpg" width="180" height="180"
+            fbsrc="{{designer.user.facebook.profilePhoto}} "
+            err-src = "resource/img/people.png">
+        </div>
+
+        <div style="position:absolute; right:10px">
+			<button ng-if = "!designer.isFollower" ng-click="addFollower()" class="btn btn-primary">
+			<span class="glyphicon glyphicon-plus"></span> 
+				Follow
+			</button>
+			<button ng-if = "designer.isFollower" ng-click="removeFollower()" class="btn btn-success active">
+			<span class="glyphicon glyphicon-ok"></span> 
+				Follow
+			</button>
+		</div>
+
+		<!-- desc -->
+		<div class="profile-desc">
+			<p>
+				<b>Name</b> : <span>{{designer.user.firstName}} {{designer.user.lastName}}</span>
+			</p>
+			<p>
+				<b>Tel</b> : <span ng-if="designer.open.tel">{{designer.user.tel}}</span>
+				
+			</p>
+			<p>
+			<b>Working at</b> : 
+				<span ng-repeat = "working in designer.working">
+				<a href="/?page={{working.shop._id}}" ng-if="working.level > 0">{{working.shop.shopName}}</a>
+				{{$last ? '' : ', '}}
+				</span>
+				<span ng-if = "designer.working.length == 0"> Now not working</span>
+			</p>
+			
+			<div style="border: 1px solid #ccc; padding:10px; width:770px; min-height:100px; margin-top:15px; overflow-y:scroll" >
+			{{designer.desc}}
+			</div>
+		</div>
+		
+	</div>
+	
+	<hr />
+	<h3 class="designer-page-title" ng-if="designer.open.schedule">Schedule</h3>
+	<designer-schedule ng-if="designer.open.schedule"></designer-schedule>
+	<P ng-if="!designer.open.schedule"></P>
+	<h3 class="designer-page-title">Comments</h3>
+	<designer-comment></designer-comment>
+
+
+	
+</div>
+
+<div fix-center 
+	width="500"
+	height="120" 
+	backdrop="true" 
+	scrollable="false" 
+	ng-show="requireLoginForm" 
+	id="requireLoginForm">
+		You should sign in first <br />
+		do you want to sign in?
+	<div style="margin-top:10px; text-align:right">
+		<button ng-click="showLoginModal()" class="btn btn-primary">Sign In</button>
+		<button ng-click="requireLoginForm = false" class="btn btn-default">close</button>
+	</div>
+</div>
+
+<style>
+	h3.designer-page-title{
+        font-size:1.7em;
+        margin: 20px 0;
+        height:60px;
+        font-weight:bold;
+        padding:20px 10px;
+        color:white;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #F6AB78), color-stop(1, #D07679));
+        background: -moz-linear-gradient(center top, #F6AB78 5%, #D07679 100%);
+	}
+
+	#requireLoginForm{
+		border-radius: 5px;
+		padding:15px;
+		background:white;
+	}
+
+</style>

@@ -1,0 +1,227 @@
+<!-- fotorama.css & fotorama.js. -->
+<!-- <link rel="stylesheet" type="text/css" href="resource/lib/fotorama-4.5.2/fotorama.css">
+<script type="text/javascript" src="resource/lib/fotorama-4.5.2/fotorama.js"></script>
+ -->
+<link rel="stylesheet" type="text/css" href="resource/lib/FlexSlider/flexslider.css">
+<script type="text/javascript" src="resource/lib/FlexSlider/jquery.flexslider-min.js"></script>
+
+<style>
+    .page-container:after{
+        clear:both;
+        display:none;
+        content:"";
+    }
+    
+
+    .page-job-top{
+        padding:20px 20px 10px 20px;
+        text-align:right;
+        background:white;
+    }
+    .page-job-top .page-job-button{
+        padding:5px 10px;
+        cursor:pointer;
+    }
+    .page-job-body{
+        font-size:1.2em;
+        padding:20px; 
+        border-bottom: 
+        1px solid #ccc; 
+        border-top: 1px solid #ccc;
+
+    }
+    .page-job-body table{
+        width:700px;
+    }
+
+    .page-job-bottom{
+        text-align: center;
+    }
+
+        .slideSize{
+            width:650px;
+            height:550px;
+            float:left;
+        }
+        .self-margin{
+            margin-right:10px;
+            cursor:pointer;
+        }
+        #carousel .flex-direction-nav{
+            display:none;
+        }
+    </style>
+
+    
+<page-reserve ng-show="reserveShow"></page-reserve>
+<div class="page-container">
+    
+    <div class="page-job-top">    
+        <div class="btn btn-primary" data-toggle="collapse" data-target="#wanted" ng-show="initData.userType == 2 && nowShopData.shop.job.status" class="page-job-button">
+            Hiring Information <span class="caret"></span>
+        </div>
+    </div>
+
+    <div class="page-job-body collapse" 
+    id="wanted"
+    ng-show="initData.userType == 2 && nowShopData.shop.job.status">
+        <!-- partials/job.html -->
+        <page-job></page-job>
+    </div>
+
+    
+
+
+    <div class="page-top">
+        <div style="text-align:right;">
+            <span class="fontSkyblue" style="font-size:2em;">{{nowShopData.shop.favorites.length}}</span>
+            <span class="fontGray">Followers</span>
+        </div>
+        <hr class="page-hr" />
+        
+        <page-slider></page-slider>
+        
+        <!-- 오른쪽 바 -->
+        <div class="page-right-bar">
+        <div style="text-align:center; font-weight:bold; font-size:1.8em;">{{selectedShop}}</div>
+            <div style="color:#777; padding:10px; border:1px solid #ccc; margin-bottom:10px">
+    		
+                <ui-gmap-google-map center='map.center' zoom='map.zoom'
+                refresh='map.control.refresh' >
+                    <ui-gmap-marker
+                        idKey='marker.id'
+                        coords = 'marker.coords'
+                        options = "marker.options"
+                        events = "events"
+                    >
+                    </ui-gmap-marker>
+                </ui-gmap-google-map>
+
+            
+                <p style="color:red; font-weight:bold; margin-top:10px">Tel</p>
+                {{nowShopData.shop.shopTel}}
+                <p style="color:red; font-weight:bold; margin-top:10px">Address</p>
+                <p style="height:30px">
+                {{nowShopData.shop.shopAddr.addr1 + " " + nowShopData.shop.shopAddr.addr2 + " " + nowShopData.shop.shopAddr.city + " " + nowShopData.shop.shopAddr.state}}
+                </p>
+            </div>
+
+            
+            <button class="btn btn-warning btn-lg btn-contact" style="border-radius:0;"
+            ng-click="showReserveFrom()" ng-disabled="!nowShopData.shop.reservable">Reserve Now</button>
+
+            <button class="btn btn-danger btn-contact-half" style="border-radius:0;" ng-click="goToComments()">Comments</button>
+
+            <button class="btn btn-primary btn-contact-half" ng-click="addFavorite()" ng-show="!isFavorite" style="border-radius:0;">Add Favorite</button>
+
+            <button class="btn btn-primary active btn-contact-half" ng-click="delFavorite()" ng-show="isFavorite" style="border-radius:0;">Remove Favorite</button>
+
+
+        </div>
+        
+        
+    </div>
+    
+<style>
+    #foo .slideme {
+    width: 550px;
+    height: 430px;
+}
+    .page-h2{
+        text-align: center;
+        font-size:1.7em;
+        margin: 20px 0;
+        height:60px;
+        font-weight:bold;
+        padding:20px 10px;
+        color:white;
+        
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #94c7f6), color-stop(1, #5992d0));
+        background: -moz-linear-gradient(center top, #94c7f6 5%, #5992d0 100%);
+        
+        -webkit-border-top-left-radius: 15px;
+        -moz-border-radius-topleft: 15px;
+        border-top-left-radius: 15px;
+        -webkit-border-top-right-radius: 15px;
+        -moz-border-radius-topright: 15px;
+        border-top-right-radius: 15px;
+
+    }
+    
+    
+</style>
+    
+    <hr />
+    
+    <!-- 요금안내부분 -->
+    <h2 class="page-hr page-h2" >Prices</h2>
+    <div class="price-wrapper">
+        <ng-include src="'/ng-app/components/shopPage/prices/prices.client.partial.html'"></ng-include>
+    </div>
+
+    <!-- 이용안내-->
+    <h2 class="page-hr page-h2" >Description</h2>
+    <div style="padding:0 20px;">
+        <p ng-bind-html="nowShopData.shop.desc" style="overflow : auto"></p>
+    </div>
+    <!-- 휴무일 및 영업시간 -->
+    <h2 class="page-hr page-h2" >Day Off & Open time</h2>
+    
+    <div style="padding:20px ; font-size:1.2em;">
+        <ng-include src="'/ng-app/components/shopPage/dayOff/dayOff.client.partial.html'"></ng-include>
+    </div>
+    
+    <!-- 이용후기(코멘트) -->
+    <h2 class="page-hr page-h2" id="comments">Comments</h2>
+    <page-comment></page-comment>
+
+</div>
+
+
+<page-recommend></page-recommend>
+
+
+
+
+
+
+
+<style>
+#confirmation{
+    display:none;
+    background:white;
+    position:fixed;
+    border:1px solid white;
+    border-radius:5px;
+    z-index: 2000;
+    -webkit-box-shadow: 1px 1px 1px 1px #ccc;
+    -moz-box-shadow: 1px 1px 1px 1px #ccc;
+    box-shadow: 1px 1px 1px 1px #ccc;
+}
+.confirmation-top{
+    padding:1em;
+    background:#8eb4f3;
+    color:white;
+
+}
+.confirmation-body{
+    padding:2em;
+}
+.confirmation-bottom{
+    text-align: right;
+    padding:2em;
+}
+
+</style>
+<div id="confirmation">
+    <div class="confirmation-top">
+        Please login
+    </div>
+    <div class="confirmation-body">
+        You cannot use this service without login. Do you want to login?
+    </div>
+    <div class="confirmation-bottom">
+        <button class="btn btn-default" ng-click = "hideLoginConfirm()">Cancel</button>
+        <button class="btn btn-primary" ng-click = "showLoginModal()">Login</button>
+    </div>
+</div>

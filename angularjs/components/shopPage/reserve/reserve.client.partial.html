@@ -1,0 +1,247 @@
+<link rel="stylesheet" type="text/css" href="resource/css/reserve.css"/>
+<div class="reserve-window" >
+	<img src="resource/img/x-gray.png" class="close-btn"
+	ng-click="hideReserveForm()">
+	
+	<div class="reserve-steps">
+		<h3 ng-class="{'now-step' : nowStep == 1}" >
+			<span class="step" 
+			ng-class="{'before-steps' : nowStep > 1, 'invalid-step' : nowStep ==4 && reserve.selectedItems.length == 0 }"
+			ng-click="nowStep = 1">STEP1<em class="glyphicon glyphicon-chevron-right" style="font-size:0.9em"></em></span>
+			<span class="step-title" ng-if="nowStep == 1">SELECT ITEMS</span>
+		</h3>
+		<h3 ng-class="{'now-step' : nowStep == 2,'next-step' : nowStep == 1} ">
+			<span class="step" ng-class="{'before-steps' : nowStep > 2, 'invalid-step' : nowStep ==4 && !reserve.selectedDesigner }"
+			ng-click="nowStep = 2">STEP2<em class="glyphicon glyphicon-chevron-right" style="font-size:0.9em"></em></span>
+		 	<span class="step-title" ng-if="nowStep == 2">SELECT DESIGNER</span>
+		</h3>
+		<h3 ng-class="{'now-step' : nowStep == 3,'next-step' : nowStep == 2}">
+			<span class="step" ng-class="{'before-steps' : nowStep > 3, 'invalid-step' : nowStep ==4 && (!reserve.selectedDate || !reserve.selectedTime) }"
+			ng-click="nowStep = 3">STEP3<em class="glyphicon glyphicon-chevron-right" style="font-size:0.9em"></em></span>
+		 	<span class="step-title" ng-if="nowStep == 3">SELECT DATE</span>
+		</h3>
+		<h3 ng-class="{'now-step' : nowStep == 4,'next-step' : nowStep == 3}">
+			<span class="step" ng-click="nowStep = 4">STEP4<em class="glyphicon glyphicon-chevron-right" style="font-size:0.9em"></em></span>
+		 	<span class="step-title" ng-if="nowStep == 4">CONFIRMATION</span>
+		</h3>
+	</div>
+	
+
+
+
+
+	<!-- step1 -->
+
+
+	<div class="reserve-step1" ng-show="nowStep == 1">
+		<div class="left-wrapper">
+			<div class="reserve-category" >
+				<h4>CUT</h4>
+				<label class="btn reserve-item" ng-repeat="item in nowShopData.shop.price.cut"
+				ng-class="{'active' : temp.cut[$index]}">
+					<input type="checkbox" ng-model="temp.cut[$index]" 
+					ng-click="toggleSelection(item,temp.cut[$index],'cut')">{{item.name}}
+				</label>
+			</div>
+			<div class="reserve-category">
+				<h4>COLOR</h4>
+				<label class="btn reserve-item" ng-repeat="item in nowShopData.shop.price.color" 
+				ng-class="{'active' : temp.color[$index]}">
+					<input type="checkbox" ng-model="temp.color[$index]" 
+					ng-click="toggleSelection(item,temp.color[$index],'color')">{{item.name}}
+				</label>
+			</div>
+			
+			<div class="reserve-category" >
+				<h4>CLINIC</h4>
+				<label class="btn reserve-item" ng-repeat="item in nowShopData.shop.price.clinic" 
+				ng-class="{'active' : temp.clinic[$index]}">
+					<input type="checkbox" ng-model="temp.clinic[$index]" 
+					ng-click="toggleSelection(item,temp.clinic[$index],'clinic')">{{item.name}}
+				</label>
+			</div>
+			
+			<div class="reserve-category">
+				<h4>PERM</h4>
+				<label class="btn reserve-item" ng-repeat="item in nowShopData.shop.price.perm" 
+				ng-class="{'active' : temp.perm[$index]}">
+					<input type="checkbox" ng-model="temp.perm[$index]" 
+					ng-click="toggleSelection(item,temp.perm[$index],'perm')">{{item.name}}
+				</label>
+			</div>
+		</div>
+
+		<div class="right-wrapper">
+			<strong>Selected Items</strong>
+			<div style="overflow-y:scroll; height:200px">
+				<table >
+					<tr>
+						<td style="width:150px; font-weight:bold">Items</td>
+						<td style="width:100px; font-weight:bold">Price</td>
+					</tr>
+					<tr ng-if="reserve.selectedItems.length == 0">
+						<td colspan="2">Please select items.</td>
+					</tr>
+					<tr ng-repeat = "item in reserve.selectedItems">
+						<td>{{item.name}}</td>
+						<td ng-if="!item.sale">
+							$ {{item.price | number:0}}
+						</td>
+						<td ng-if="item.sale">
+							$ {{item.sale | number:0}}
+							<span style="font-size:13px; color:#ff2426">(Sale)</span>
+						</td>
+					</tr>
+					
+				</table>
+			</div>
+			<div class="total-price">
+				<span style="width:150px; font-weight:bold">Total</span>
+				<span style="width:100px; font-weight:bold">$ {{totalPrice() | number:0}}</span>
+			</div>
+			
+	
+		</div>
+	</div>
+
+	<!-- step2 -->
+
+	<div class="reserve-step2" ng-show="nowStep == 2">
+
+		<div class="comment-designer-picture" >
+			<div ng-class="{'checked-designer' : 'random' == reserve.selectedDesigner}">
+			</div>
+			<img src="resource/img/random.jpeg" width="150" height="150"
+			ng-click="reserve.selectedDesigner = 'random'">
+			<div class="designer-name">Random</div>
+		</div>
+
+		<div ng-repeat="designer in nowShopData.designers" class="comment-designer-picture">
+			<div ng-class="{'checked-designer' : designer.user._id == reserve.selectedDesigner.user._id}">
+            </div>
+                <img ng-src="userAssets/users/{{designer.user._id}}/profilePhoto.jpg" width="150" height="150"
+                fbsrc="{{designer.user.facebook.profilePhoto}} "
+                err-src = "resource/img/people.png"
+                ng-class="{'checked-designer-photo' : designer.user._id == reserve.selectedDesigner.user._id}"
+                ng-click="selectDesignerInReserve(designer)">
+                
+                <div class="designer-name">{{designer.user.firstName}} {{designer.user.lastName}}</div>
+			
+		</div>
+	</div>
+	
+
+	<!-- step3 -->
+
+	<div class="reserve-step3" ng-show="nowStep == 3">
+		<div class="left-wrapper">
+			<div id="datepicker"></div>
+		</div>
+		<div class="right-wrapper">
+
+			<strong>Available times</strong>
+			<div ng-repeat = "day in reserve.availableTime" ng-if="day.available" class="btn times"
+			ng-click = "reserve.selectedTime = day.time" ng-class="{ 'active' : reserve.selectedTime == day.time }">
+				{{day.time | date: 'HH:mm'}}
+			</div>
+		</div>
+		
+	</div>
+
+
+	<!-- step4 -->
+	<div class="reserve-step4" ng-show="nowStep == 4">
+
+		<div style="clear:both; margin-bottom:20px">
+			<strong style="font-size:1.4em">Please check it prior to booking!</strong>
+
+		</div>
+
+		<div class="total-designer">
+			<strong>Selected Designer</strong> 
+			<div>
+				<img ng-src="userAssets/users/{{reserve.selectedDesigner.user._id}}/profilePhoto.jpg" width="150"height="150"
+                fbsrc="{{reserve.selectedDesigner.user.facebook.profilePhoto}} "
+                err-src = "resource/img/people.png">
+			</div>
+			<div style="text-align:center; font-size:1.3em; padding:10px;">
+				<p>{{reserve.selectedDesigner.user.firstName}} {{reserve.selectedDesigner.user.lastName}}</p>
+			</div>		
+		</div>
+
+		
+
+		<div class="total-items">
+			<strong>Selected Items</strong>
+			<div style="overflow-y:scroll; height:200px">
+				<table >
+
+					<tr>
+						<td style="width:150px; font-weight:bold">Items</td>
+						<td style="width:100px; font-weight:bold">Price</td>
+					</tr>
+					<tr ng-if="reserve.selectedItems.length == 0">
+						<td colspan="2">Please select items.</td>
+					</tr>
+					<tr ng-repeat = "item in reserve.selectedItems">
+						<td>{{item.name}}</td>
+						<td ng-if="!item.sale">
+							{{item.price | number:0}}
+						</td>
+						<td ng-if="item.sale">
+							{{item.sale | number:0}}
+							<span style="font-size:13px; color:#ff2426">(Sale)</span>
+						</td>
+					</tr>
+					
+				</table>
+			</div>
+			<div class="total-price">
+				<span style="width:150px; font-weight:bold">Total</span>
+				<span style="width:100px; font-weight:bold">${{totalPrice() | number:0}}</span>
+			</div>
+			
+	
+		</div>
+		
+
+		<div class="total-date">
+			<div style="margin-bottom:20px">
+				<strong>Date</strong>
+
+				<p>Selected Date : {{reserve.selectedDate | date: 'yyyy/MM/dd'}} </p>
+				<p>Selected Time : {{reserve.selectedTime | date: 'HH:mm'}}</p>
+			</div>
+
+			
+			<div>
+				<strong>Applicant</strong>
+				<p>Name : {{initData.firstName}} {{initData.lastName}}</p>
+					<p ng-if="initData.tel">Tel : {{initData.tel}}</p>
+					<p ng-if="!initData.tel">
+						<span style="color:#ff2426">
+							Please add your Contact number
+						</span>
+					</p>
+			</div>
+
+		</div>
+		
+		<div class="total-info">
+			<strong>Memo</strong>
+			<textarea class="form-control" ng-model="reserve.memo"></textarea>
+			<div style="position:absolute; bottom:30px; left:75px" >
+				<button class="btn btn-lg btn-success"
+				ng-click="addReserve()">Book Now!</button>
+			</div>
+		</div>
+		
+	</div>
+
+	
+	<div class="reserve-bottom">
+		
+		<button ng-click="nowStep= nowStep-1" ng-disabled="nowStep == 1">Prev</button>
+		<button ng-click="nowStep= nowStep+1" ng-disabled="nowStep == 4">Next</button>
+	</div>
+</div>

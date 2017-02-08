@@ -1,0 +1,62 @@
+
+<h1>Main images</h1>
+<div class="mainImage-wrapper">
+    
+    <p><span class="bold">Main</span> <span>[Ideal size is 640x300 ]</span></p>
+    <img ng-src="userAssets/shops/{{selectedShop.shop._id}}/main.jpg" 
+    err-src="resource/img/upload1.jpeg"
+    width="640" height="300" id="mainPreview">
+    <div class="fileUpload btn btn-info display-block">
+        <span>Upload</span>
+        
+        <input id="mainUpload" type="file" class="upload" ng-file-select="setMainImages($files,'main')" />
+    </div>
+
+</div>
+
+<div class="other-image-wrapper">
+
+    <p>[Ideal size for interior pictures are 640x400]</p>
+    <div class="other-images">
+        <p class="bold">interior1</p>
+        <img ng-src="userAssets/shops/{{selectedShop.shop._id}}/image1.jpg"
+        err-src="resource/img/upload2.jpeg"
+        width="200" height="200" id="image1Preview"
+        
+        >
+        <div class="fileUpload btn btn-info display-block" >
+            <span>Upload</span>
+            <input id="image1Upload" type="file" class="upload" ng-file-select="setMainImages($files,'image1')" />
+        </div>
+    </div>
+
+    <div class="other-images">
+        <p class="bold">interior2</p>
+        <img ng-src="userAssets/shops/{{selectedShop.shop._id}}/image2.jpg" 
+        err-src="resource/img/upload2.jpeg"
+        width="200" height="200" id="image2Preview">
+        <div class="fileUpload btn btn-info display-block" >
+            <span>Upload</span>
+            
+            <input id="image2Upload" type="file" class="upload" ng-file-select="setMainImages($files,'image2')" />
+        </div>
+    </div>
+
+    <div class="other-images">
+        <p class="bold">interior3</p>
+        <img ng-src="userAssets/shops/{{selectedShop.shop._id}}/image3.jpg" 
+        err-src="resource/img/upload2.jpeg"
+        width="200" height="200" id="image3Preview">
+        <div class="fileUpload btn btn-info display-block">
+            <span>Upload</span>
+            
+            <input id="image3Upload" type="file" class="upload" ng-file-select="setMainImages($files,'image3')" />
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+</script>

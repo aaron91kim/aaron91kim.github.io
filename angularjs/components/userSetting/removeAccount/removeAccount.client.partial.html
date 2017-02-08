@@ -1,0 +1,19 @@
+<form ng-submit = "removeUser()">
+	<h1>Remove account</h1>
+	<hr />
+	<div class="edituser-parts" ng-show="(initData.facebook.isFacebook && initData.facebook.hasPassword) || (!initData.facebook.isFacebook && !initData.facebook.hasPassword)">
+		<div class="edituser-left-side">
+			<label for="existingPassword">Existing password</label>
+		</div>
+		<div class="edituser-right-side">
+				<input type="password" placeholder = "Existing password" class="form-control setting-input-password" ng-model = "removeAccount.existingPassword" id="existingPassword">
+			<p class="password-tooltip"> Please enter your existing password</p>
+		</div>
+	</div>
+	<p style="color:red">{{hint}}</p>
+	If you remove your account your information(photo, comments, reservation, follower etc) will be removed.
+	<div class="edituser-parts align-right">
+		
+		<input type="submit" class="btn btn-primary" value="Remove">
+	</div>
+</form>

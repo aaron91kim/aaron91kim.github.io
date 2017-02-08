@@ -1,0 +1,125 @@
+<h1>Members</h1>
+
+
+<div class="myMember-searchbox">
+    <label>
+    Search:
+    <input type="text" placeholder= "Please type name or phone number" class="form-control" ng-model = "searchText">
+    </label>
+    <button class="btn btn-success floatRight" onclick = "showMessageForm('#addMemberForm')">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+        Add Member
+    </button>
+</div>
+
+<div class="member-wrapper">
+    <table class="table table-striped member-table" >
+        <thead>
+            <tr>
+                <th ng-click=" orderBy('name')" class="member-th">
+                    Name <span class="caret"></span>
+                </th>
+                <th ng-click=" orderBy('tel')" class="member-th">
+                    Tel <span class="caret"></span>
+                </th>
+                <th ng-click=" orderBy('mileage')" class="member-th">
+                    Mileage <span class="caret"></span>
+                </th>
+                <th ng-click=" orderBy('date')" class="member-th">
+                    Registered date <span class="caret"></span>
+                </th>
+                <th class="bold">Edit</th>
+                <th class="bold">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat = "member in memberPaging.filteredMembers = ( members | filter : searchText | orderBy:predicate:reverse) | startFrom:memberPaging.currentPage*memberPaging.pageSize | limitTo:memberPaging.pageSize ">
+                <td>
+                    <input type="text" ng-value="member.name" ng-model="member.name" class="input-name" ng-enter = "setMember(member)">
+                </td>
+                <td>
+                    <input type="text" ng-value="member.tel" ng-model="member.tel" class="input-tel" ng-enter = "setMember(member)" >
+                </td>
+                <td>
+                    <input type="number" ng-value="member.mileage" ng-model="member.mileage" step="1" 
+                    ng-enter = "setMember(member)" class="input-name" >
+                </td>
+                <td>{{member.date | date : 'yyyy-MM-dd'}}</td>
+                <td>
+                    <span ng-click="setMember(member)" class="glyphicon glyphicon-ok check-icon"></span>
+                </td>
+                <td class="relative">
+                    <span class="pointer kick" onclick="showPopOver(this)">Remove</span>
+                    
+                    <div class="remove-pop-over">
+                        Do you want to remove <span class="bold">{{member.name}}</span>?
+
+                        <div class="pop-over-bottom">
+                            <button ng-click ="removeMember(member)">Confirm</button>
+                            <button onclick = "hidePopOver(this)">Cencel</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-show="memberPaging.filteredMembers.length == 0">
+                <td colspan="6" class="no-result">There is no result</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+
+    <!-- 순서상 밑에있어야 로직 작동. -->
+    <div class="paging-group">
+        <div class="total">
+            <b>Total Member</b> : {{members.length}}
+        </div>
+
+        <div class="btn-group">
+            <button ng-disabled="memberPaging.currentPage <= 0" 
+            ng-click="memberPaging.currentPage=memberPaging.currentPage-1"
+            class="btn paging-btn btn-left">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                Prev
+            </button>
+            <button ng-disabled="memberPaging.currentPage >= memberPaging.filteredMembers.length/memberPaging.pageSize - 1" 
+            ng-click="memberPaging.currentPage=memberPaging.currentPage+1"
+            class="btn paging-btn btn-right">
+
+                Next
+                <span class="glyphicon glyphicon-circle-arrow-right"></span>
+            </button>
+        </div>
+        <h3 class="page-num">
+        {{selectedShop.shop.shopName}} ( {{memberPaging.currentPage+1}} / {{memberPaging.numberOfPages()}} )
+        </h3>
+        
+    </div>
+</div>
+
+<div id="addMemberForm">
+    <span class="glyphicon glyphicon-remove close-btn" onclick ="hideMessageForm('#addMemberForm')"></span>
+    <form ng-submit ="addMember(addMemberInfo)">
+        <h3>Add member</h3>
+        <hr/>
+        Name 
+        <input type="text" class="form-control" ng-model = "addMemberInfo.memberName">
+        Tel 
+        <input type="text" class="form-control" ng-model ="addMemberInfo.memberTel">
+        <div class="form-footer">
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+
+var showPopOver = function(el){
+    $(el).next().toggle();
+}
+var hidePopOver =function(el){
+    $(el).parent().parent().hide();
+}
+</script>

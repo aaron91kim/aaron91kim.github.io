@@ -1,0 +1,248 @@
+<div style="padding:0 20px">
+        <p style="font-size:1.3em">Please select Desinger for comment</p>
+        <div class="comment-wrapper">
+
+            
+            <div ng-repeat ="designer in nowShopData.designers track by $index" class="comment-designer-picture">
+                
+                
+                <div style="position:absolute; top:10px; color:#e74149; font-size:1.3em">
+                    <span class="glyphicon glyphicon-heart"></span>{{designer.followers.length}}
+                </div>
+
+                <div ng-class="{'checked-designer' : designer.user._id == selectedDesigner}">
+                </div>
+                <img ng-src="userAssets/users/{{designer.user._id}}/profilePhoto.jpg" width="150" height="150"
+                fbsrc="{{designer.user.facebook.profilePhoto}} "
+                err-src = "resource/img/people.png"
+                ng-class="{'checked-designer-photo' : designer.user._id == selectedDesigner}"
+                ng-click="selectDesignerInComment(designer.user._id)">
+                <div class="designer-name">{{designer.user.firstName}} {{designer.user.lastName}}</div>
+                
+                <a href="/?designer={{designer.user._id}}">
+                    <div class="designer-home">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Information
+                    </div>
+                </a>
+                
+                <button class="btn btn-success active" style="width: 100%; border-radius:0;" ng-if="designer.isFavoriteDesigner" ng-click="removeFollower(designer.user._id, $index)">
+                    <span class="glyphicon glyphicon-ok"></span> 
+                    Follow
+                </button>
+
+                <button class="btn btn-default" style="width: 100%; border-radius:0;" ng-if="!designer.isFavoriteDesigner" ng-click="addFollower(designer.user._id, $index)">
+                    <span class="glyphicon glyphicon-plus"></span> 
+                    Follow
+                </button>
+                
+                
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <style>
+    
+
+    .commentbox {
+        clear: both;
+        width: 980px;
+    }
+    .commentlist {
+        margin: 0 auto;
+        width: 750px;
+    }
+    .commentlist li.comment {
+        word-break: break-all;
+        background: #f6f6f6;
+        border: 1px solid #ddd;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        margin: 0 0 2.8em;
+        padding: 5px 20px 20px 20px;
+        position: relative;
+        min-height:80px;
+    }
+    .list-style-none {
+        list-style: none;
+    }
+
+    .commentlist .from{
+        left: -110px;
+        position: absolute;
+        top: 0;
+    }
+    .commentlist .from img{
+        width:68px;
+        height:68px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 1px 2px #ccc;
+        -moz-box-shadow: 0 1px 2px #ccc;
+        box-shadow: 0 1px 2px #ccc;
+        padding: 0;
+    }
+
+    .commentlist .user-name{
+        padding-top:5px;
+        text-align:center;
+    }
+
+
+    .commentlist .to{
+        position: absolute;
+        right: -90px;
+        top: 0;
+    }
+    .commentlist .to img{
+        width:68px;
+        height:68px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 1px 2px #ccc;
+        -moz-box-shadow: 0 1px 2px #ccc;
+        box-shadow: 0 1px 2px #ccc;
+        padding: 0;
+        
+    }
+
+
+
+    .commentlist > li:before {
+        content: url(/resource/img/comment-arrow.png);
+        left: -21px;
+        position: absolute;
+    }
+    .comment-wrap {
+        margin: 10px 0 30px 0;
+    }
+    .comment-wrap:after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+    
+    .comment-wrapper{
+        margin : 20px 0 ;
+
+    }
+    .comment-wrapper:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    .comment-designer-picture{
+        width:172px; 
+        padding: 10px; 
+        border:1px solid #ccc; 
+        cursor:pointer; 
+        margin-right:15px;
+        float:left;
+        position:relative;
+    }
+    .comment-designer-picture:hover{
+        border:1px solid #6b69ba
+    }
+    .checked-designer{
+        background-image: url('resource/img/Check-icon.png');
+        background-repeat: no-repeat;
+        opacity: 0.7;
+        top:25px;
+        left:20px;
+        width:120px;
+        height:120px;
+        position:absolute;
+        z-index: 10;
+    }
+    .checked-designer-photo{
+        opacity: 0.8;
+    }
+    .designer-name{
+        border:1px solid #ccc;
+        text-align:center; 
+        font-size:1.2em; 
+        padding:0.2em;
+    }
+    .designer-home{
+        color:black;
+        border:1px solid #ccc;
+        text-align:center; 
+        font-size:1em; 
+        padding:0.2em;
+    }
+    .designer-home a{
+        color:black;
+    }
+    .designer-home:hover{
+        background:#ffe3ef;
+        color:#6f8ce7;
+    }
+
+    </style>
+
+    
+
+    <!-- 0.5단위로 평가할것. -->
+    <div class="commentbox" style="padding:10px">
+        <div ng-show ="!initData._id" style="padding:10px"> Please  
+
+
+        <span style="color:blue; cursor:pointer" onclick="$('#signInModal').modal('show');">Sign in</span>
+        in order to write comment</div>
+        
+        <p style="font-weight:bold">comment
+            <span>({{shopComments.max}})</span>
+        </p>
+        
+        <div class="comment-wrap" ng-show ="initData._id">
+            <textarea class="form-control" rows="3" style="width:800px; float:left"
+            ng-model ="userComment" placeholder="please write comment" ></textarea>
+            <button class="btn-lg btn btn-default" style="float:left; width:120px; height:73px; margin-left:10px"
+            ng-click="addComment(userComment)"
+            >Submit</button>
+        </div>
+
+        <ul class="commentlist">
+
+            <li class="comment list-style-none" ng-repeat = "comment in shopComments.comments track by $index">
+                
+                <span style="color:#ccc; font-size:0.9em; position:absolute; bottom:-21px; right:0">{{comment.date | date : 'yyyy-MM-dd hh:mm'}}</span>
+                <p style="position:relative;">
+
+                    <span 
+                    ng-if = "comment.from._id == initData._id"
+                    ng-click ="removeComment(comment._id,$index)"
+                    style="position:absolute; right:-15px; cursor:pointer; color:red"
+                    class="glyphicon glyphicon-remove">
+                    </span>
+                </p>
+                <div class="from">
+                    <img 
+                    fbsrc="{{comment.from.facebook.profilePhoto}}"
+                    err-src = "resource/img/people.png"
+                    ng-src="userAssets/users/{{comment.from._id}}/profilePhoto.jpg">
+                    <p class="user-name">{{comment.from.firstName}} {{comment.from.lastName}}</p>
+                </div>
+                
+                <span style="color:gray">
+                        <pre style="border:none">{{comment.comment}}</pre>
+                </span>
+
+                <div class="to">
+                    <img 
+                    fbsrc="{{comment.to.facebook.profilePhoto}}"
+                    err-src = "resource/img/people.png"
+                    ng-src="userAssets/users/{{comment.to._id}}/profilePhoto.jpg">
+                    <p class="user-name">{{comment.to.firstName}} {{comment.to.lastName}}</p>
+                </div>
+            </li>
+
+        </ul>
+        <!-- 10개 단위로 끊어서 코멘트 출력할것. 버튼 누르면 나머지 코멘트 출력. -->
+        <center>
+            <button ng-click="getComments()" ng-show = "shopComments.max > shopComments.now">more comments</button>
+        </center>
+    </div>

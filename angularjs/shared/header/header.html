@@ -1,0 +1,243 @@
+<style>
+    .message{
+        position:relative;
+        float:right; height:50px; 
+        width:50px;
+    }
+    .message .glyphicon{
+        position:absolute;
+        font-size: 30px;
+        top:15px;
+        color:#999; 
+        
+    }
+    #diva{
+        position:absolute;
+        font-size:0.7em;
+        top:7px;
+        left:20px;
+        padding:3px;
+        background-color: #999;
+        border-radius: 12px;
+        text-align: center;
+
+    }
+    #diva span{
+        color:#fff;
+    }
+    #header{
+
+    border-bottom: 1px solid #a9b3b3;
+    
+   
+    }
+    /*부트스트랩 수정*/
+    .tab-content{
+     border:solid 0px black !important;   
+    }
+    .nav-signup{
+        padding-left:30px !important;
+    }
+    .nav-tabs-signup{
+        border-bottom: 0px solid #ddd !important;
+    }
+    .nav-tabs-signup>li>a{
+        border-radius:4px !important;
+    }
+    .nav-tabs-signup>li.active>a, .nav-tabs-signup>li.active>a:hover, .nav-tabs-signup>li.active>a:focus{
+       border-bottom-color: #dddddd !important; 
+    }
+    .modal-footer{
+      border-top:0px solid black;  
+    }
+</style>
+
+<header ng-controller="signCtrl" ng-init="init()">
+    <script>
+    $(function() {
+        $('#signupTap a').click(function(e) {
+            e.preventDefault();
+        });
+    })
+
+    </script>
+    
+    
+    <user-verify></user-verify>
+    
+    <div class="content blueLine" id="header">
+        <!-- 로고를 위한 블럭 -->
+        <div class="logo-area">
+            <a ng-click="reload()" class="pointer">
+                <img src="resource/img/logo.png" class="header-logo" style="height:45px">
+            </a>
+
+        </div>
+        
+        <ul class="login-area">
+
+            <li data-toggle="modal" data-target="#signInModal" ng-if="!loggedIn" class="nav-li">Log In
+            </li>
+            <li data-toggle="modal" data-target="#signUpModal" ng-if="!loggedIn" class="nav-li">Sign Up
+            </li>
+
+            <li ng-if="loggedIn" class="dropdown nav-li" ng-click="dropdownMyMenu()">
+                <div data-toggle="dropdown">My Menu
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </div>
+                <!-- 드롭다운 메뉴 -->
+                <ul class="custom-dropdown myMenu dropdown-menu" role="menu">
+                    <!-- <li>
+                        <a ng-click="reload()">
+                            <span class="glyphicon glyphicon-home myMenuImg"></span>Main</a>
+                    </li> -->        
+                    <li>
+                        <a href="/booking">
+                            <span class="glyphicon glyphicon-calendar myMenuImg"></span>My Booking</a>
+                    </li>
+                    <li ng-show="loggedIn&& initData.userType==2">
+                        <a href="/myShop">
+                            <span class="glyphicon glyphicon glyphicon-home myMenuImg"></span>My Shop</a>
+                    </li>
+
+                    <li>
+                        <a href="/favorites">
+                            <span class="glyphicon glyphicon-heart myMenuImg"></span>My Favorite</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/userSetting">
+                            <span class="glyphicon glyphicon-cog myMenuImg"></span>Setting</a>
+                    </li>
+                    <li class="divider"></li> 
+                    <li>
+                        <a href="" ng-click="logout()">
+                            <span class="glyphicon glyphicon-off myMenuImg"></span>Sign Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div ng-show="loggedIn" class="message">
+            <a href="/notifications">
+                <span class="glyphicon glyphicon-volume-down"></span>
+                <div id="diva">
+                    <span>{{initData.notifications | uncheckedNotifications}}</span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+    
+    <signup-modal></signup-modal>
+    <signin-modal></signin-modal>
+    <forgot-modal></forgot-modal>
+    
+    
+
+ 
+</header>
+
+<style>
+.color-hr {
+    background-image: url('/resource/img/color-border.png');
+    background-repeat: repeat-x;
+    height: 7px;
+}
+.header-search-box {
+    padding: 25px 0;
+    background: RGBA(11, 4, 5, 0.9);
+    min-width:1024px;
+}
+.search-wrapper {
+    width: 850px;
+    margin-top: 30px;
+    margin: 0 auto;
+}
+.search-wrapper:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+.main-search-text {
+    background: #D3D3D3;
+    background: -moz-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #D3D3D3), color-stop(38%, #D9D9D9), color-stop(82%, #E5E5E5), color-stop(100%, #E7E7E7));
+    background: -webkit-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: -o-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: -ms-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: linear-gradient(to bottom, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#d3d3d3', endColorstr='#e7e7e7', GradientType=0);
+    padding: 10px 10px;
+    color: #2f3232;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #FFF;
+    border: 1px solid rgba(16, 103, 133, 0.6);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.5), inset 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    outline: 0;
+}
+.main-search-text:focus {
+    background: white;
+}
+.search-text-size1 {
+    width: 250px;
+    margin-right: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.search-text-size2 {
+    width: 450px;
+    margin-right: 10px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.main-search-btn {
+    -moz-box-shadow: inset 0px 1px 0px 0px #97c4fe;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #97c4fe;
+    box-shadow: inset 0px 1px 0px 0px #97c4fe;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0));
+    background: -moz-linear-gradient(center top, #3d94f6 5%, #1e62d0 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
+    background-color: #3d94f6;
+    -webkit-border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+    border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-radius-bottomright: 0px;
+    border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-bottom-left-radius: 0px;
+    text-indent: 0px;
+    border: 1px solid #337fed;
+    display: inline-block;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 17px;
+    font-weight: bold;
+    font-style: normal;
+    height: 43px;
+    line-height: center;
+    width: 131px;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 1px 0px #1570cd;
+    border-radius: 4px;
+}
+.main-search-btn:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6));
+    background: -moz-linear-gradient(center top, #1e62d0 5%, #3d94f6 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
+    background-color: #1e62d0;
+}
+.main-search-btn:active {
+    position: relative;
+    top: 1px;
+}
+</style>
+    

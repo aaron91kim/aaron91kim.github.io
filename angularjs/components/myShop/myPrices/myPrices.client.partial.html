@@ -1,0 +1,139 @@
+
+<h1 class="myShop-h1">Price</h1>
+<div style="clear:both; text-align:right;">
+    <button class="btn btn-primary" ng-click="setPrices(prices)">
+    Save
+    </button>
+</div>
+<div class="mangagePrice-container">
+    <form ng-submit="setPrices(prices)">
+        <div class="managePrice-left">
+            <div class="managePrice-wrapper" id="cut">
+                <table>
+                    <tr>
+                        <td colspan="3"> <h3 class="categories-headers">CUT<span ng-click = "addItem('cut')" class="glyphicon glyphicon-plus-sign"></span></h3>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="item-td1">Sort</td>
+                        <td class="item-td2">Price</td>
+                        <td class="item-td2">Sale</td>
+                    </tr>
+                    <tr ng-repeat ="cut in prices.cut" class="item-price-wrapper">
+                        <td>
+                            <input type="text" placeholder = "Item Name" ng-model="prices.cut[$index].name" value="{{cut.name}}">
+                        </td>
+                        <td>
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Price" ng-model ="prices.cut[$index].price" value="{{cut.price}}">
+                        </td>
+                        <td class="relative">
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Sale" ng-model ="prices.cut[$index].sale" value="{{cut.sale}}">
+                            <span class="glyphicon glyphicon-remove fontRed price-remove" ng-click ="removeItem('cut',$index)"></span>
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
+            <div class="managePrice-wrapper" id="color">
+
+
+                <table>
+                    <tr>
+                        <td colspan="3"> <h3 class="categories-headers">COLOR<span ng-click = "addItem('color')" class="glyphicon glyphicon-plus-sign"></span></h3>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="item-td1">Sort</td>
+                        <td class="item-td2">Price</td>
+                        <td class="item-td2">Sale</td>
+                    </tr>
+                    <tr ng-repeat ="color in prices.color" class="item-price-wrapper">
+                        <td>
+                            <input type="text" placeholder = "Item Name" ng-model="prices.color[$index].name" value="{{color.name}}">
+                        </td>
+                        <td>
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Price" ng-model ="prices.color[$index].price" value="{{color.price}}">
+                        </td>
+                        <td class="relative">
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Sale" ng-model ="prices.color[$index].sale" value="{{color.sale}}">
+                            <span class="glyphicon glyphicon-remove fontRed price-remove" ng-click ="removeItem('color',$index)"></span>
+                        </td>
+                        
+                    </tr>
+                </table>
+                
+            </div>
+            <div class="managePrice-wrapper" id="clinic">
+                <table>
+                    <tr>
+                        <td colspan="3"> <h3 class="categories-headers">CLINIC<span ng-click = "addItem('clinic')" class="glyphicon glyphicon-plus-sign"></span></h3>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="item-td1">Sort</td>
+                        <td class="item-td2">Price</td>
+                        <td class="item-td2">Sale</td>
+                    </tr>
+                    <tr ng-repeat ="clinic in prices.clinic" class="item-price-wrapper">
+                        <td>
+                            <input type="text" placeholder = "Item Name" ng-model="prices.clinic[$index].name" value="{{clinic.name}}">
+                        </td>
+                        <td>
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Price" ng-model ="prices.clinic[$index].price" value="{{clinic.price}}">
+                        </td>
+                        <td class="relative">
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Sale" ng-model ="prices.clinic[$index].sale" value="{{clinic.sale}}">
+                            <span class="glyphicon glyphicon-remove fontRed price-remove" ng-click ="removeItem('clinic',$index)"></span>
+                        </td>
+                        
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="managePrice-right">
+            <div class="managePrice-wrapper" id="perm">
+                <table>
+                    <tr>
+                        <td colspan="3"> <h3 class="categories-headers">PERM<span ng-click = "addItem('perm')" class="glyphicon glyphicon-plus-sign"></span></h3>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="item-td1">Sort</td>
+                        <td class="item-td2">Price</td>
+                        <td class="item-td2">Sale</td>
+                    </tr>
+                    <tr ng-repeat ="perm in prices.perm" class="item-price-wrapper">
+                        <td>
+                            <input type="text" placeholder = "Item Name" ng-model="prices.perm[$index].name" value="{{perm.name}}">
+                        </td>
+                        <td>
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Price" ng-model ="prices.perm[$index].price" value="{{perm.price}}">
+                        </td>
+                        <td class="relative">
+                            <span class="dollar-font">$ </span>
+                            <input type="number" step ="0.5" placeholder = "Sale" ng-model ="prices.perm[$index].sale" value="{{perm.sale}}">
+                            <span class="glyphicon glyphicon-remove fontRed price-remove" ng-click ="removeItem('perm',$index)"></span>
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+    </form>
+
+
+</div>

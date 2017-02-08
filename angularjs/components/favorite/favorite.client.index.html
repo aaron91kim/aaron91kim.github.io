@@ -1,0 +1,140 @@
+<style>
+	.favorites-title{
+		font-size:1.3em;
+		font-weight:bold;
+		padding:20px 40px;
+		margin-bottom:20px;
+        color:white;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #94c7f6), color-stop(1, #5992d0));
+        background: -moz-linear-gradient(center top, #94c7f6 5%, #5992d0 100%);
+        
+	}
+	
+	.favorites-load-more{
+        border:1px solid #ccc;
+		width:340px;
+		height:40px;
+		padding:10px;
+		background:white;
+		text-align:center;
+		margin:20px 0;
+		display:inline-block;
+		font-size:1.2em;
+		font-weight:bold;
+		cursor:pointer;
+	}
+
+</style>
+<div style="padding:10px" class="main-container" ng-init="init()">
+
+	<h2 class="favorites-title">Favorite Shops</h2>
+	
+	<div>
+		<!-- 똑같이 뜨는곳. -->
+		<div class="main-tap-container" ng-repeat = "shopData in shopDatas">
+                <!-- 여기부터 컨테이너 -->
+                <a href="/?page={{shopData._id}}" ng-click ="clickShop()" style="color:inherit;">
+                    <div class="img-wrap">
+                    <img ng-src="userAssets/shops/{{shopData._id}}/main.jpg" class="main-shop-image">
+                    </div>
+                    <div class="main-tap-content">
+                        <div class="main-tap-content-1">
+                            <h2>{{shopData.shopName}}</h2>
+                            <span class="glyphicon glyphicon-heart" style="color:#E4394F"></span>
+                            <span class="fontSkyblue">{{shopData.favorites.length}}</span>
+                            <span ng-if="shopData.job.status" class="job-wanted" ng-show="initData.userType==2">Now Hiring</span>
+
+                        </div>
+
+                        <div class="main-tap-content-2">
+                            <p><span class="glyphicon glyphicon-map-marker"></span>
+                            {{shopData.shopAddr.addr1}},
+                            {{shopData.shopAddr.addr2}},
+                            {{shopData.shopAddr.city}}</p>
+
+                        </div>
+
+
+                        <div class="main-tap-content-3">
+                            
+                            <h3 ng-if = "shopData.events.mainType == 'event' ">EVENTS</h3>
+
+                            <h3 ng-if = "shopData.events.mainType == 'desc' ">DESCRIPTION</h3>
+                           
+                            
+                            <div class="event-wrapper"
+                            ng-if = "shopData.events.eventType == 'event' && shopData.events.mainType=='event' "
+                            ng-repeat="event in shopData.events.event track by $index">
+                                <span class="event-title">{{event.title}}</span>
+                                <span class="event-percent">
+                                {{event.percent}}<em style="font-size:12px">%</em>
+                                </span>
+                                <span class="event-sale">Sale</span>
+                            </div>
+
+                            <div ng-if="shopData.events.mainType=='desc' " class="event-desc">
+                                <pre>{{shopData.events.desc}}</pre>
+                            </div>
+                            
+                            <div ng-if="shopData.events.mainType=='event' && shopData.events.eventType=='desc' " class="event-desc">
+                                <pre>{{shopData.events.eventDesc}}</pre>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </a>
+            </div>
+
+	</div>
+	
+	<div style="text-align:center">
+		<div class="favorites-load-more">More</div>
+	</div>
+
+
+	<h2 class="favorites-title">Favorite Desingers</h2>
+    
+    <div class="main-tap-content-desinger" ng-repeat="designer in designerDatas" style="background:white;">
+        <div class="main-tap-content-1-designer">
+            <span class="fontSkyblue">{{designer.followers.length}}</span>
+            <span class="fontGray">Follower</span>
+
+        </div>
+
+
+
+        <div class="main-tap-content-2-designer">
+        <!-- 이미지 클릭시 디자이너페이지로 이동. -->
+        <a href="/?_escaped_fragment_=designer={{designer.user._id}}" ng-click ="clickShop()">
+
+         <img 
+            src="userAssets/users/{{designer.user._id}}/profilePhoto.jpg" width="200" height="200"
+            fbsrc="{{designer.user.fbPicture}} "
+            err-src = "resource/img/people.png"
+         alt="">   
+        </a>
+        </div>
+
+        <div class="main-tap-content-bottom-designer">
+            
+            <h3 style="font-weight:bold; font-size:18px;">{{designer.user.firstName}} {{designer.user.lastName}}</h3>
+            <p style="line-height:2">
+                
+                <span ng-repeat="work in designer.working" ng-if="designer.working.length > 0 ">
+                    <a href="/?page={{work.shop._id}}" ng-click ="clickShop()">{{work.shop.shopName}}</a>
+                    {{$last ? '' : ', '}}
+                </span>
+                <span ng-if ="designer.working.length == 0 ">
+                    Unemployeed
+                </span>
+            </p>
+            
+        </div>
+
+    </div>
+	<div style="text-align:center; clear:both">
+		<div class="favorites-load-more">More</div>
+	</div>
+
+</div>

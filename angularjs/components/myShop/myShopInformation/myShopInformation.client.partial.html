@@ -1,0 +1,176 @@
+
+<h1 class="myShop-h1">Basic information</h1>
+
+<div class="manageShop-headers">
+    Edit Shop information
+</div>
+
+<div class="manageShop-basic-info">
+
+    <form ng-submit="setShopInfo(manageShop)">
+        
+        <div style="clear:both">
+            <div class="manageShop-row">
+                <label class="manageShop-label">Shop Name</label>
+                <input type="text" class="form-control form-text" 
+                placeholder = "Your shop name"
+                ng-model = "manageShop.shopName" >
+            </div>
+
+            <div class="manageShop-row">
+                <label class="manageShop-label">Phone</label>
+                <input type="text" class="form-control form-text"
+                placeholder = "(123)456-7890"
+                ng-model = "manageShop.shopTel" >
+            </div>
+        </div>
+        
+        <hr />
+        <div class="manageShop-left">
+            
+            <div>
+                <label for="address">Address</label>
+                <input type="text" class="form-control manageShop-row" ng-model="manageShop.address.findAddress"
+                id="address" googleplace>
+            </div>
+            <div class="manageShop-row">
+                <label class="manageShop-label">Postal Code</label>
+                <input type="text" class="post-code form-control" placeholder = "Your postal code" id="post" ng-model ="manageShop.address.postalCode">
+            </div>
+            
+            
+        </div>
+        
+        <div class="manageShop-map">
+            <ui-gmap-google-map center='map.center' zoom='map.zoom'
+            refresh='map.refresh'>
+                <ui-gmap-marker
+                    idKey='marker.id'
+                    coords = 'marker.coords'
+                    options = "marker.options"
+                    events = "events">
+                </ui-gmap-marker>
+            </ui-gmap-google-map>
+        </div>
+        
+        <div class="manageShop-bottom">
+        <input type="submit" class="btn-lg btn-primary" value="Save" >
+        </div>
+
+    </form>
+    
+
+
+</div>
+
+
+<div class="manageShop-headers">Edit Day off</div>
+
+
+
+<form ng-submit="setWorkTime()">
+    
+    <div style="margin-bottom: 10px">
+        
+        <span style="font-weight:bold">Closed day: </span>
+
+        <span ng-repeat = "day in offDays" ng-if="day.off==true">
+            {{day.day}} 
+            
+        </span>
+    </div>
+    <div class="btn-group">
+        <label class="btn btn-default manageShop-label-dayOff" ng-repeat = "offDay in offDays" ng-class="{'active' : offDay.off==true}">
+            <input type="checkbox" 
+            ng-checked = "offDay.off"
+            ng-model = "offDay.off"
+            class="manageShop-input-dayoff">
+            {{offDay.day}} 
+        </label>
+    </div>
+    
+    
+
+    <div class="manageShop-dayOff">
+        <div class="manageShop-dayOff-left">
+            <div>
+                Work time (Weekday)
+            </div>
+            <div>
+                (Weekend)
+            </div>
+        </div>
+
+        <div class="manageShop-dayOff-right">
+            <div>
+                <select ng-model = "weekDay.from.hour" >
+                    <option ng-repeat ="hour in openTime.hours" ng-value="hour"
+                    ng-selected = "selectedShop.shop.time.weekDay.from.hour == hour"
+                    >{{hour}}</option>
+                </select>
+                :
+                <select ng-model = "weekDay.from.minute">
+                    <option ng-repeat ="minute in openTime.minutes" ng-value="minute"
+                    ng-selected = "selectedShop.shop.time.weekDay.from.minute == minute"
+                    >{{minute}}</option>
+                </select>
+                
+
+                ~
+
+                <select ng-model = "weekDay.to.hour">
+                    <option ng-repeat ="hour in openTime.hours" ng-value="hour"
+                    ng-selected = "selectedShop.shop.time.weekDay.to.hour == hour"
+                    >{{hour}}</option>
+                </select>
+                :
+                <select ng-model = "weekDay.to.minute">
+                    <option ng-repeat ="minute in openTime.minutes" ng-value="minute"
+                    ng-selected = "selectedShop.shop.time.weekDay.to.minute == minute"
+                    >{{minute}}</option>
+                </select>
+                
+            </div>
+            <div>
+                <select ng-model = "weekend.from.hour">
+                    <option ng-repeat ="hour in openTime.hours" ng-value="hour"
+                    ng-selected = "selectedShop.shop.time.weekend.from.hour == hour"
+                    >{{hour}}</option>
+                </select>
+                :
+                <select ng-model = "weekend.from.minute">
+                    <option ng-repeat ="minute in openTime.minutes" ng-value="minute"
+                    ng-selected = "selectedShop.shop.time.weekend.from.minute == minute"
+                    >{{minute}}</option>
+                </select>
+                
+
+                ~
+
+                <select ng-model = "weekend.to.hour">
+                    <option ng-repeat ="hour in openTime.hours" ng-value="hour"
+                    ng-selected = "selectedShop.shop.time.weekend.to.hour == hour"
+                    >{{hour}}</option>
+                </select>
+                :
+                <select ng-model = "weekend.to.minute">
+                    <option ng-repeat ="minute in openTime.minutes" ng-value="minute"
+                    ng-selected = "selectedShop.shop.time.weekend.to.minute == minute"
+                    >{{minute}}</option>
+                </select>
+                
+            </div>
+        </div>
+
+    </div>
+    <div class="manageShop-bottom">
+        <input type="submit" class="btn-lg btn-primary" value="Save" >
+    </div>
+</form>
+
+
+<script>
+$('.dayOff').click(function() {
+    $(this).toggleClass('active');
+})
+</script>

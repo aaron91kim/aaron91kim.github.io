@@ -1,0 +1,43 @@
+<div>
+           
+    <span class="bold">Closed Day : </span>
+    
+        <span ng-repeat = "dayOff in nowShopData.shop.dayOff track by $index">
+        {{dayOff}}
+        {{$last ? '' : ', '}}
+        </span>
+        <span ng-if = "nowShopData.shop.dayOff.length == 0">
+            There is no closed day
+        </span>
+    
+     
+
+
+    <table width="800" class="table" style="margin:auto">
+        <thead>
+        <tr>
+            <th></th><th class="bold">Work time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th class="bold">Week day</th>
+            <td>
+            {{nowShopData.shop.time.weekDay.from.hour}}:{{nowShopData.shop.time.weekDay.from.minute}}
+            ~ 
+            {{nowShopData.shop.time.weekDay.to.hour}}:{{nowShopData.shop.time.weekDay.to.minute}}
+            </td>
+        </tr>
+        <tr>
+            <th class="bold">Weekend</th>
+            <td>
+                {{nowShopData.shop.time.weekend.from.hour}}:{{nowShopData.shop.time.weekend.from.minute}}
+                ~
+                {{nowShopData.shop.time.weekend.to.hour}}:{{nowShopData.shop.time.weekend.to.minute}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>

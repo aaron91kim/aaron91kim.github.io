@@ -1,0 +1,95 @@
+
+
+<div class="main-container">
+    <style>
+    .edituser-parts {
+        margin:30px 0 ;
+    }
+    .edituser-parts:after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+    .edituser-left-side {
+        width: 250px;
+        float: left;
+        padding: 20px;
+        font-weight: bold;
+    }
+    .edituser-right-side:after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+    .edituser-right-side {
+        position: relative;
+        padding: 20px;
+        float: left;
+        width:470px;
+    }
+    .edituser-content-wrapper {
+        width: 800px;
+        min-height: 600px;
+        float: left;
+        padding: 30px;
+        border-radius: 10px
+    }
+    .edituser-content-wrapper h1 {
+        margin-bottom: 30px;
+        font-size: 2.1em;
+    }
+    .edituser-left-nav {
+        margin-left: 20px;
+        width: 200px;
+        float: left;
+    }
+    .edituser-left-nav a {
+        cursor: pointer;
+        display: block;
+        margin-bottom: 5px;
+        color: #15b663;
+    }
+    .align-right {
+        text-align: right;
+    }
+    .setting-input-password {
+        width: 300px;
+        -webkit-transition: background 1s;
+        transition: background 1s;
+    }
+    
+    .password-tooltip{
+        padding: 3px 5px;
+        background: RGBA(233, 237, 173, 0.3);
+
+        border: 1px solid #ccc;
+        position: absolute;
+        top : -10px;
+        display:none;
+    }
+    </style>
+
+    <div ng-init="init()">
+        <div class="edituser-content-wrapper">
+            <setting-account ng-if = "subPage=='account'"></setting-account>
+            <setting-designer ng-if = "subPage=='designer'"></setting-designer>
+            <setting-password ng-if = "subPage=='password'"></setting-password>
+            <setting-profile ng-if = "subPage=='profile'"></setting-profile>
+            <remove-account ng-if = "subPage=='remove'"></remove-account>
+        </div>
+
+        <div class="edituser-left-nav">
+            <a ng-click="changeSubpage('designer')" ng-if="initData.userType == 2">Designer setting</a>
+            <a ng-click="changeSubpage('profile')">Profile setting</a>
+            <a ng-click="changeSubpage('account')">Account setting</a>
+            <a ng-click="changeSubpage('password')">Password setting</a>
+            <a ng-click="changeSubpage('remove')">Remove account</a>
+        </div>
+    </div>
+	
+
+	
+</div>
+
+
+

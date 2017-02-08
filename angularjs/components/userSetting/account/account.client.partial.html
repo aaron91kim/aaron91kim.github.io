@@ -1,0 +1,31 @@
+
+<h1>Account setting</h1>
+<hr />
+<form ng-submit ="updateAccount()">
+
+
+<div class="edituser-parts">
+	<div class="edituser-left-side">
+	Receive email from website
+	</div>
+	<div class="edituser-right-side">
+			<input type="radio" ng-value="true" name ="mailing" ng-model ="accountSetting.mailing" ng-checked = "accountSetting.mailing"> Agree
+			<input type="radio" ng-value="false" name="mailing" ng-model ="accountSetting.mailing" ng-checked = "!accountSetting.mailing"> Disagree
+	</div>
+
+</div>
+
+<div class="edituser-parts">
+	<div class="edituser-left-side">
+		Receive message from Favorite designers
+	</div>
+	<div class="edituser-right-side">
+		<input type="radio" ng-value="true" name ="message" ng-model ="accountSetting.message" ng-checked = "accountSetting.message"> Agree
+		<input type="radio" ng-value="false" name="message" ng-model ="accountSetting.message" ng-checked = "!accountSetting.message"> Disagree
+	</div>
+</div>
+
+<div class="edituser-parts align-right">
+	<input type="submit" value="Save" class="btn btn-primary">
+</div>
+</form>	

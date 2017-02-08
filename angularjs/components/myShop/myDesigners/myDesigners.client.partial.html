@@ -1,0 +1,52 @@
+<h1>Manage Designers</h1>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th class="bold">Name</th>
+            <th class="bold">Tel</th>
+            <th class="bold">Followers</th>
+            <th class="bold" ng-if="selectedShop.myLevel == 2">Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="designer in selectedShop.designers">
+            <td>{{designer.user.firstName}} {{designer.user.lastName}}</td>
+            <td>{{designer.user.tel}}</td>
+            <td>{{designer.followers.length}}</td>
+            <td ng-if="selectedShop.myLevel == 2">
+                <a ng-click="confirmOut([$index])" class="designer_remove" ng-if="selectedShop.shop.owner != initData._id">Remove</a>
+                <div ng-if="designer.isVisible" >
+                    Do you want to remove <span class="bold">{{designer.user.firstName}} {{designer.user.lastName}}</span>
+                        <button ng-click = "kickDesigner(designer.user._id, $index)">Confirm</button>
+                        <button ng-click = "designer.isVisible = false">Cancel</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<style>
+
+</style>
+<div ng-if="selectedShop.myLevel == 2">
+    <h3 class="designer-request-title">Request</h3>
+    
+    <div ng-repeat="designer in selectedShop.pendingDesigners" class="designer-request">
+
+        <div class="request-status">
+            <img ng-src="userAssets/users/{{designer._id}}/profilePhoto.jpg" width="120" height="120"
+            fbsrc="{{designer.facebook.profilePhoto}} "
+            err-src = "resource/img/people.png"
+            ng-class="{'checked-designer-photo' : designer._id == selectedDesigner}"
+            ng-click="selectDesignerInComment(designer.user._id)">
+            <p class="floatLeft request-info">
+                <span class="bold">{{designer.user.firstName}} {{designer.user.lastName}}</span> is your designer?</p>
+            <p class="floatLeft request-info">Followers : {{designer.followers.length}}</p>
+            <p class="floatLeft request-info">Tel : {{designer.user.tel}}</p>
+            <div class="floatRight request-buttons">
+                <button class="btn btn-success" ng-click="acceptNewDesigner(designer.user._id, $index)">Accept</button>
+                <button class="btn btn-danger" ng-click="declineNewDesigner(designer.user._id, $index)">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>

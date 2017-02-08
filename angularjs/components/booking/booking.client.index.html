@@ -1,0 +1,379 @@
+<div class="main-container">
+	
+	<h2>Your Booking status</h2>
+		
+	<style>
+		.progress-wrapper:after{
+			content:"";
+			display:block;
+			clear:both;
+
+		}
+		.progress-wrapper{
+		}
+		.booking-progress{
+			padding:20px;
+			border:1px solid #ccc;
+			border-radius:5px;
+			font-size:1.4em;
+			text-align: center;
+			color:white;
+			margin-right:40px;
+			background: -webkit-linear-gradient(#87A3F6 5%, #3B70BC 100%);
+			background: -o-linear-gradient(#87A3F6 5%, #3B70BC 100%);
+			background: linear-gradient(#87A3F6 5%, #3B70BC 100%);
+		    cursor : pointer;
+		}
+		.booking-progress:hover{
+			background: -webkit-linear-gradient(#94c7f6 5%, #5992d0 100%);
+			background: -o-linear-gradient(#94c7f6 5%, #5992d0 100%);
+			background: linear-gradient(#94c7f6 5%, #5992d0 100%);
+		}
+		.pending-color {
+			color:#FFA222;
+		}
+		.canceled-color{
+			color:#D20D08;
+		}
+		.approved-color{
+			color:#22D23A;
+		}
+		.all-color{
+			color:#1B97D2;
+		}
+		.status{
+			cursor:pointer;
+			padding:6px;
+		}
+		.status:hover{
+			background: #D0D8DA
+		}
+		.order-by{
+			cursor:pointer;
+		}
+		.total-status-table{
+			margin:20px 0;
+		}
+		
+		.top-status{
+			border:1px solid #F2F7EF;
+	        background:white;
+		    padding:10px;
+		    text-align:center;
+		    font-size:1.4em;
+		    margin-right:20px;
+		    cursor:pointer;
+		}
+	</style>
+	<div class="progress-wrapper" ng-init="init()">
+		
+		<table class="total-status-table table table-bordered">
+			<tr>
+				<td class="top-status" ng-click="status = ''" ng-class="{'active' : status == ''|| !status}">
+					<p>Total</p> 
+					<p>{{bookingList.length}}</p>
+				</td>
+				<td class="top-status" ng-click="status = 'Pending'" ng-class="{'active' : status == 'Pending'}">
+					<p>Pending</p> 
+					<p>{{bookingList | statusCounter : 'Pending'}}</p>
+				</td>
+				<td class="top-status" ng-click="status = 'Canceled'" ng-class="{'active' : status == 'Canceled'}"> 
+					<p>Canceled</p> 
+					<p>{{bookingList | statusCounter : 'Canceled'}}</p>
+				</td>
+				<td class="top-status" ng-click="status = 'Approved'" ng-class="{'active' : status == 'Approved'}">
+					<p>Approved</p>
+					<p>{{bookingList | statusCounter : 'Approved'}}</p>
+				</td>
+
+			</tr>
+		</table>
+		
+
+<style>
+	.booking-info{
+		margin-bottom:20px;
+		margin-left:50px;
+	}
+	.booking-info:after{
+		clear:both;
+		content:"";
+		display:block;
+	}
+
+	.total-designer{
+		background:white;
+		float:left;
+		width:180px;
+		height:340px;
+		position:relative;
+		padding:10px;
+		border:1px solid #ccc;
+	}
+	.total-designer strong{
+		font-size:1.2em;
+		display:inline-block;
+		margin-bottom:15px;
+	}
+	.total-items{
+		background:white;
+		position:relative;
+		padding:10px;
+		float:left;
+		width:300px;
+		height:340px;
+		border:1px solid #ccc;
+		margin-left:15px;
+	}
+
+
+
+	.total-items strong{
+		font-size:1.2em;
+		display:inline-block;
+		margin-bottom:15px;
+	}
+	.total-items table{
+		width:100%;
+		font-size:1.1em;
+	}
+	.total-items tr{
+
+		border-bottom:1px solid #ccc; 
+	}
+	.total-items td{
+		padding:5px;
+	}
+
+
+	.total-items .total-price{
+		border:none;
+		position:absolute;
+		left:15px;
+		bottom:10px;
+	}
+
+	.total-date{
+		float:left;
+		position:relative;
+		margin-left:15px;
+	}
+	.total-date div{
+		background:white;
+		padding:10px;
+		width:200px;
+		height:160px;
+		border:1px solid #ccc;
+	}
+	.total-date strong{
+		font-size:1.2em;
+		display:inline-block;
+		margin-bottom:15px;
+	}
+
+	.total-date p{
+		font-size:0.9em;	
+	}
+
+	.total-status{
+		float:left;
+		position:relative;
+		margin-left:15px;
+	}
+
+	.total-status div{
+		background:white;
+		padding:10px;
+		width:200px;
+		height:160px;
+		border:1px solid #ccc;
+	}
+	.total-status strong{
+		font-size:1.2em;
+		display:inline-block;
+		margin-bottom:15px;
+	}
+	.date-status{
+		height:165px;
+		margin-bottom:10px;
+	}
+	.date-status:after{
+		clear:both;
+		content:"";
+		display:block;
+	}
+	.total-reason{
+		margin-left:15px;
+
+	}
+	.total-reason div{
+		background:white;
+		padding:10px;
+		width:415px;
+		border:1px solid #ccc;
+		height:165px;
+	}
+	.total-reason strong{
+		font-size:1.2em;
+		display:inline-block;
+		margin-bottom:15px;
+	}
+</style>
+		<div class="booking-info">
+
+			<div class="total-designer">
+				<strong>Designer</strong> 
+				<div>
+					<img ng-src="userAssets/users/{{selectedBooking.designer._id}}/profilePhoto.jpg" width="150"height="150"
+			        fbsrc="{{selectedBooking.designer.facebook.profilePhoto}} "
+			        err-src = "resource/img/people.png">
+				</div>
+				<div style="text-align:center; font-size:1.3em; padding:10px;">
+					<p>{{selectedBooking.designer.firstName}} {{selectedBooking.designer.lastName}}</p>
+				</div>		
+			</div>
+
+
+
+			<div class="total-items">
+				<strong>Amount</strong>
+				<div style="overflow-y:scroll; height:200px">
+					<table >
+
+						<tr>
+							<td style="width:150px; font-weight:bold">Items</td>
+							<td style="width:100px; font-weight:bold">Price</td>
+						</tr>
+						<tr ng-if="selectedBooking.items.length == 0">
+							<td colspan="2">Please select items.</td>
+						</tr>
+						<tr ng-repeat = "item in selectedBooking.items">
+							<td>{{item.name}}</td>
+							<td ng-if="!item.sale">
+								${{item.price | number:0}}
+							</td>
+							<td ng-if="item.sale">
+								${{item.sale | number:0}}
+								<span style="font-size:13px; color:#ff2426">(Sale)</span>
+							</td>
+						</tr>
+						
+					</table>
+				</div>
+				<div class="total-price">
+					<span style="width:150px; font-weight:bold">Total</span>
+					<span style="width:100px; font-weight:bold">${{totalPrice() | number:0}}</span>
+				</div>
+			</div>
+
+			<div style="float:left;">
+				<div class="date-status">
+					<div class="total-date">
+						<div>
+							<strong>Date</strong>
+
+							<p>Booked Date : {{selectedBooking.bookTime | date: 'yyyy/MM/dd'}} </p>
+							<p>Booked Time : {{selectedBooking.bookTime | date: 'h:mma'}}</p>
+						</div>
+					</div>
+					<div class="total-status">
+						<div>
+							<strong>status</strong>
+							<p ng-class="{'pending-color' : selectedBooking.status == 'Pending','canceled-color' : selectedBooking.status == 'Canceled', 'approved-color' : selectedBooking.status == 'Approved'}" style="text-align:center; font-size:2em">{{selectedBooking.status}}</p>
+							<p ng-if="selectedBooking.status=='Approved' && selectedBooking.noShow"
+							style="text-align:center; font-size:1.3em;">(No-Show)</p>
+							<p ng-if="selectedBooking.status=='Approved' && !selectedBooking.noShow"
+							style="text-align:center; font-size:1.3em;">(Visited)</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="total-reason" ng-if="selectedBooking.status == 'Canceled'">
+					<div>
+						<strong>Reason</strong>
+						<p>{{selectedBooking.reason}}</p>
+					</div>
+				</div>
+
+				<div class="total-reason" ng-if="selectedBooking.status != 'Canceled'">
+					<div>
+						<strong>Memo</strong>
+						<p>{{selectedBooking.memo}}</p>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<!-- table for list -->
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr style="background:white">
+					<td ng-click="orderBy('shop.shopName')" class="order-by">Shop name<span class="caret"></span></td>
+					<td ng-click="orderBy('bookTime')" class="order-by">Booked Date<span class="caret"></span></td>
+					<td ng-click="orderBy('total')" class="order-by">Amount<span class="caret"></span></td>
+					<td ng-if="status =='Approved'">Visited</td>
+					<td>
+						<span class="dropdown order-by" dropdown on-toggle="toggled(open)" >
+					      <a href class="dropdown-toggle" dropdown-toggle style="display:block; width:100%; height:100%;">
+					      	Status(<span ng-if="!status">All</span>{{status}})<span class="caret"></span>
+					      </a>
+					      <ul class="dropdown-menu">
+					      	<li class="status" ng-click="status = ''"><span class="glyphicon glyphicon-cd all-color "></span>All</li>
+					        <li class="status" ng-click="status = 'Pending'"><span class="glyphicon glyphicon-cd pending-color "></span>Pending</li>
+					        <li class="status" ng-click="status = 'Canceled'"><span class="glyphicon glyphicon-cd canceled-color "></span>Canceled</li>
+					        <li class="status" ng-click="status = 'Approved'"><span class="glyphicon glyphicon-cd approved-color "></span>Approved</li>
+					      </ul>
+					    </span>
+   					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="booking in bookingPaging.filteredBookings = (bookingList| filter : status | orderBy : predicate : reverse) | startFrom:bookingPaging.currentPage * bookingPaging.pageSize | limitTo : bookingPaging.pageSize" 
+				style="cursor:pointer" 
+				ng-class="{'warning' : booking.status == 'Pending','danger' : booking.status == 'Canceled', 'success' : booking.status == 'Approved'}"
+				ng-click="selectBooking(booking)">
+					<td>{{booking.shop.shopName}}</td>
+					<td>{{booking.bookTime | date : 'yyyy/MM/dd h:mma'}}</td>
+					<td>${{booking | totalPrice}}</td>
+					<td ng-if="status =='Approved'">
+						<div ng-if="!booking.noShow">
+							<span class="glyphicon glyphicon-ok-sign approved-color"></span>
+						</div>
+						<div ng-if="booking.noShow">
+							<span class="glyphicon glyphicon-remove-sign canceled-color"></span>
+						</div>
+					</td>
+					<td>
+						<span class="glyphicon glyphicon-cd" ng-class="{'pending-color' : booking.status == 'Pending','canceled-color' : booking.status == 'Canceled', 'approved-color' : booking.status == 'Approved'}"
+						></span>
+						{{booking | bookingStatus}}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<!-- paging -->
+		<div style="text-align:right">
+			<button ng-disabled="bookingPaging.currentPage <= 0" 
+            ng-click="bookingPaging.currentPage = bookingPaging.currentPage-1"
+            class="btn">
+                <span class="glyphicon glyphicon-menu-left"></span>
+                Prev
+            </button>
+            <button ng-disabled="bookingPaging.currentPage >= bookingPaging.filteredBookings.length/bookingPaging.pageSize - 1" 
+            ng-click="bookingPaging.currentPage=bookingPaging.currentPage+1"
+            class="btn">
+                Next
+                <span class="glyphicon glyphicon glyphicon-menu-right"></span>
+            </button>
+		</div>
+
+	</div>
+
+	
+</div>
+
+
+
